@@ -270,7 +270,7 @@
                 </div>
                 <div class="text-sm text-gray-400">
                     Web Development by 
-                    <a href="https://clickstudiosdigital.com" 
+                    <a href="https://clickstudios-digital.com" 
                        target="_blank" 
                        rel="noopener noreferrer" 
                        class="text-red-500 transition-colors duration-300 hover:text-red-400">
