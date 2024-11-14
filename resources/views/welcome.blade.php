@@ -134,6 +134,15 @@
                 </template>
             </div>
 
+            <!-- Track List Preview -->
+<div class="max-w-md mx-auto mb-8"
+     x-show="showContent"
+     x-transition:enter="transition ease-out duration-500 delay-300"
+     x-transition:enter-start="opacity-0 transform translate-y-4"
+     x-transition:enter-end="opacity-100 transform translate-y-0">
+    <livewire:audio-player />
+</div>
+
             <!-- CTA Buttons -->
             <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
@@ -206,10 +215,7 @@
 
             <div class="container relative px-4 mx-auto max-w-7xl">
                 <!-- Footer Grid -->
-                <div class="grid grid-cols-1 gap-12 mb-12 md:grid-cols-4"
-                    x-intersect:enter="transition duration-1000 ease-out"
-                    x-intersect:enter-start="opacity-0 transform translate-y-8"
-                    x-intersect:enter-end="opacity-100 transform translate-y-0">
+                <div class="grid grid-cols-1 gap-12 mb-12 md:grid-cols-4">
                     <!-- Brand Column -->
                     <div class="col-span-1">
                         <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Logo"
