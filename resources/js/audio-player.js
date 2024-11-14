@@ -1,83 +1,184 @@
 // resources/js/audio-player.js
-import WaveSurfer from 'wavesurfer.js'
-import Hover from 'wavesurfer.js/dist/plugins/hover.esm.js'
+import WaveSurfer from "wavesurfer.js";
+import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
 
-document.addEventListener('alpine:init', () => {
-    Alpine.data('audioPlayer', (tracks) => ({
+document.addEventListener("alpine:init", () => {
+    Alpine.data("audioPlayer", (tracks) => ({
         wavesurfer: null,
+        wavesurferMobile: null,
         currentTrack: null,
         isPlaying: false,
         tracks: tracks,
         progress: 0,
-        currentTime: '0:00',
+        currentTime: "0:00",
         volume: 80,
         showVolume: false,
-        
+
         init() {
             this.initWaveSurfer();
-            this.$watch('currentTrack', (value) => {
+
+            this.$watch("currentTrack", (value) => {
                 if (value !== null) {
                     this.loadTrack(this.tracks[value]);
+                }
+            });
+
+            window.addEventListener("resize", () => {
+                if (this.wavesurfer) {
+                    this.wavesurfer.setHeight(40);
+                }
+                if (this.wavesurferMobile) {
+                    this.wavesurferMobile.setHeight(40);
                 }
             });
         },
 
         initWaveSurfer() {
-            this.wavesurfer = WaveSurfer.create({
+            // Configurare comună
+            const commonConfig = {
                 container: this.$refs.waveform,
-                waveColor: '#4F4A85',
-                progressColor: '#EF4444', // red-500 to match your theme
-                cursorColor: '#EF4444',
+                waveColor: "#4F4A85",
+                progressColor: "#EF4444",
+                cursorColor: "#EF4444",
                 barWidth: 2,
                 barGap: 1,
                 barRadius: 3,
-                height: 48,
+                height: 32,
                 normalize: true,
                 hideScrollbar: true,
+                responsive: true,
+                interact: true,
                 plugins: [
                     Hover.create({
-                        lineColor: '#EF4444',
-                        labelBackground: '#1F2937', // gray-800
-                        labelColor: '#ffffff',
-                    })
-                ]
-            });
+                        lineColor: "#EF4444",
+                        labelBackground: "#1F2937",
+                        labelColor: "#ffffff",
+                    }),
+                ],
+            };
 
-            this.wavesurfer.on('play', () => {
-                this.isPlaying = true;
-            });
-            
-            this.wavesurfer.on('pause', () => {
-                this.isPlaying = false;
-            });
-            
-            this.wavesurfer.on('finish', () => {
-                this.isPlaying = false;
-                this.playNext();
-            });
+            // Inițializare waveform desktop
+            if (this.$refs.waveform) {
+                this.wavesurfer = WaveSurfer.create({
+                    ...commonConfig,
+                    container: this.$refs.waveform,
+                });
+            }
 
-            this.wavesurfer.on('audioprocess', () => {
-                this.progress = this.wavesurfer.getCurrentTime() / this.wavesurfer.getDuration() * 100;
-                this.currentTime = this.formatTime(this.wavesurfer.getCurrentTime());
+            // Inițializare waveform mobil
+            // Pentru mobil
+            if (this.$refs.waveformMobile) {
+                this.wavesurferMobile = WaveSurfer.create({
+                    ...commonConfig,
+                    container: this.$refs.waveformMobile,
+                    height: 24,
+                });
+            }
+
+            // Funcție pentru actualizarea timpului
+            const updateTime = () => {
+                if (this.wavesurfer) {
+                    this.currentTime = this.formatTime(
+                        this.wavesurfer.getCurrentTime()
+                    );
+                    this.progress =
+                        (this.wavesurfer.getCurrentTime() /
+                            this.wavesurfer.getDuration()) *
+                        100;
+                }
+            };
+
+            // Sincronizare între waveform-uri
+            const updateProgress = (time) => {
+                if (this.wavesurfer) {
+                    this.wavesurfer.seekTo(time);
+                }
+                if (this.wavesurferMobile) {
+                    this.wavesurferMobile.seekTo(time);
+                }
+            };
+
+            [this.wavesurfer, this.wavesurferMobile].forEach((ws) => {
+                if (ws) {
+                    ws.on("play", () => {
+                        this.isPlaying = true;
+                        if (ws === this.wavesurfer && this.wavesurferMobile) {
+                            this.wavesurferMobile.play();
+                        } else if (
+                            ws === this.wavesurferMobile &&
+                            this.wavesurfer
+                        ) {
+                            this.wavesurfer.play();
+                        }
+                    });
+
+                    ws.on("pause", () => {
+                        this.isPlaying = false;
+                        if (ws === this.wavesurfer && this.wavesurferMobile) {
+                            this.wavesurferMobile.pause();
+                        } else if (
+                            ws === this.wavesurferMobile &&
+                            this.wavesurfer
+                        ) {
+                            this.wavesurfer.pause();
+                        }
+                    });
+
+                    ws.on("finish", () => {
+                        this.isPlaying = false;
+                        this.playNext();
+                    });
+
+                    ws.on("seeking", (time) => updateProgress(time));
+                    ws.on("audioprocess", updateTime);
+                }
             });
         },
-        
+
         loadTrack(track) {
-            this.wavesurfer.load(track.file);
-            this.wavesurfer.setVolume(this.volume / 100);
+            const loadAndPlay = () => {
+                if (this.wavesurfer) {
+                    this.wavesurfer.load(track.file);
+                    this.wavesurfer.setVolume(this.volume / 100);
+                }
+                if (this.wavesurferMobile) {
+                    this.wavesurferMobile.load(track.file);
+                    this.wavesurferMobile.setVolume(this.volume / 100);
+                }
+            };
+
+            // Oprește track-ul curent înainte de a încărca unul nou
+            if (this.wavesurfer) {
+                this.wavesurfer.pause();
+            }
+            if (this.wavesurferMobile) {
+                this.wavesurferMobile.pause();
+            }
+
+            loadAndPlay();
         },
-        
+
         playTrack(index) {
             if (this.currentTrack === index) {
                 this.togglePlay();
             } else {
-                this.wavesurfer.pause();
                 this.currentTrack = index;
+                // Pornește automat după încărcarea track-ului
+                if (this.wavesurfer) {
+                    this.wavesurfer.once("ready", () => {
+                        this.togglePlay();
+                    });
+                }
             }
         },
-        
+
         togglePlay() {
-            this.wavesurfer.playPause();
+            if (this.wavesurfer) {
+                this.wavesurfer.playPause();
+            }
+            if (this.wavesurferMobile) {
+                this.wavesurferMobile.playPause();
+            }
         },
 
         playNext() {
@@ -95,23 +196,43 @@ document.addEventListener('alpine:init', () => {
         formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = Math.floor(seconds % 60);
-            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
         },
 
         updateVolume() {
-            this.wavesurfer.setVolume(this.volume / 100);
+            const volume = this.volume / 100;
+            if (this.wavesurfer) {
+                this.wavesurfer.setVolume(volume);
+            }
+            if (this.wavesurferMobile) {
+                this.wavesurferMobile.setVolume(volume);
+            }
         },
 
         seekTo(event) {
-            const rect = this.$refs.waveform.getBoundingClientRect();
+            const wavesurfer = event.target.closest(".md\\:hidden")
+                ? this.wavesurferMobile
+                : this.wavesurfer;
+            if (!wavesurfer) return;
+
+            const rect = event.currentTarget.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const seekPercentage = x / rect.width;
-            
-            this.wavesurfer.seekTo(seekPercentage);
-            
+
+            wavesurfer.seekTo(seekPercentage);
+
             if (!this.isPlaying) {
                 this.togglePlay();
             }
-        }
+        },
+
+        destroy() {
+            if (this.wavesurfer) {
+                this.wavesurfer.destroy();
+            }
+            if (this.wavesurferMobile) {
+                this.wavesurferMobile.destroy();
+            }
+        },
     }));
 });
