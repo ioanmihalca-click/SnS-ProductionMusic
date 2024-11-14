@@ -7,51 +7,41 @@ use Livewire\Component;
 class AudioPlayer extends Component
 {
     public $tracks = [
+    
         [
             'id' => 1,
-            'name' => 'Dry Martini',
-            'duration' => '2:45',
-            'file' => null
-        ],
-        [
-            'id' => 2,
-            'name' => 'Cinematic Impact',
-            'duration' => '3:15',
-            'file' => null
-        ],
-        [
-            'id' => 3,
             'name' => 'Riviera',
-            'duration' => '4:00',
-            'file' => null
-        ]
-    ];
+            'artist' => 'Snow N Stuff',
+            'duration' => '2:45',
+            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
+            'artwork' => 'storage/thumbnail-riviera.jpg'
+        ],
 
-    public $currentTrack = 0;
-    public $isPlaying = false;
+        [
+            'id' => 1,
+            'name' => 'Riviera',
+            'artist' => 'Snow N Stuff',
+            'duration' => '2:45',
+            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
+            'artwork' => 'storage/thumbnail-riviera.jpg'
+        ],
+
+        [
+            'id' => 1,
+            'name' => 'Riviera',
+            'artist' => 'Snow N Stuff',
+            'duration' => '2:45',
+            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
+            'artwork' => 'storage/thumbnail-riviera.jpg'
+        ]
+        // Aici poți adăuga mai multe track-uri sau le poți încărca din baza de date
+    ];
 
     public function mount()
     {
-        // Actualizăm căile fișierelor cu URL-uri complete
-        $this->tracks = array_map(function($track) {
-            $filename = strtolower(str_replace(' ', '-', $track['name'])) . '.mp3';
-            $track['file'] = asset('storage/' . $filename);
-            return $track;
-        }, $this->tracks);
-    }
-
-    public function playTrack($index)
-    {
-        if ($this->currentTrack === $index && $this->isPlaying) {
-            $this->isPlaying = false;
-            $this->dispatch('pauseAudio');
-        } else {
-            $this->currentTrack = $index;
-            $this->isPlaying = true;
-            $this->dispatch('playAudio', [
-                'track' => $this->tracks[$index]
-            ]);
-        }
+        // Aici poți face orice inițializare necesară
+        // De exemplu, încărcarea track-urilor din baza de date
+        // $this->tracks = Track::all()->toArray();
     }
 
     public function render()
