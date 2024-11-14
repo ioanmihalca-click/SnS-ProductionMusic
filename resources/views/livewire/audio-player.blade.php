@@ -6,10 +6,9 @@
          currentTime: '0:00',
          isPlaying: false,
          volume: 80,
-         showVolume: false,
-         wavesurfer: null
+         showVolume: false
      }">
-     
+
 <div class="max-w-md mx-auto mt-4">
     <!-- Title Section -->
     <div class="mb-6 text-center font-roboto-condensed">
@@ -60,34 +59,18 @@
             </template>
         </div>
 
-          <!-- Circular Audio Visualizer -->
-        <div class="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none top-1/2 left-1/2"
-             x-data="{ circles: Array(5).fill() }"
-             :class="{ 'scale-110': isPlaying, 'scale-100': !isPlaying }"
-             style="transition: transform 0.5s ease-out">
-            <template x-for="(circle, index) in circles" :key="index">
-                <div class="absolute border rounded-full border-red-500/30"
-                    :style="`width: ${(index + 1) * 100}px; height: ${(index + 1) * 100}px; 
-                            animation: pulse ${2 + index * 0.5}s infinite ease-out;
-                            animation-delay: ${index * 0.2}s`"></div>
-            </template>
-        </div>
-
-    </div>
-
-       <!-- Persistent Player Modal -->
-    <div x-show="currentTrack !== null" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 transform translate-y-full"
-         x-transition:enter-end="opacity-100 transform translate-y-0"
-         x-transition:leave="transition ease-in duration-300"
-         x-transition:leave-start="opacity-100 transform translate-y-0"
-         x-transition:leave-end="opacity-0 transform translate-y-full"
-         class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-800 shadow-lg">
-        
-        <div class="container flex flex-col px-4 py-3 mx-auto">
-            <!-- Track Info and Controls -->
-            <div class="flex items-center justify-between mb-4">
+        <!-- Persistent Player Modal -->
+        <div x-show="currentTrack !== null" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform translate-y-full"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform translate-y-full"
+             class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-800 shadow-lg">
+            
+            <div class="container flex items-center justify-between px-4 py-3 mx-auto">
+                <!-- Track Info -->
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 overflow-hidden bg-gray-800 rounded-md">
                         <img :src="tracks[currentTrack]?.artwork || '/placeholder-image.jpg'" 
@@ -137,6 +120,18 @@
                     </button>
                 </div>
 
+                <!-- Progress Bar -->
+                <div class="flex items-center flex-1 max-w-2xl px-8 space-x-4">
+                    <span class="text-xs text-gray-400" x-text="currentTime"></span>
+                    <div class="relative flex-1 h-1 bg-gray-700 rounded-full cursor-pointer" 
+                         @click="seekTo($event)"
+                         x-ref="progressBar">
+                        <div class="absolute h-full bg-red-500 rounded-full"
+                             :style="`width: ${progress}%`"></div>
+                    </div>
+                    <span class="text-xs text-gray-400" x-text="tracks[currentTrack]?.duration"></span>
+                </div>
+
                 <!-- Volume & Actions -->
                 <div class="flex items-center space-x-4">
                     <div class="relative" @mouseleave="showVolume = false">
@@ -164,19 +159,25 @@
                                   d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                         </svg>
                     </button>
-                </div>
-            </div>
 
-            <!-- Waveform Container -->
-            <div class="flex items-center w-full space-x-4">
-                <span class="text-xs text-gray-400" x-text="currentTime"></span>
-                <div id="waveform" class="flex-1 h-24"></div>
-                <span class="text-xs text-gray-400" x-text="tracks[currentTrack]?.duration"></span>
+                    <button class="text-gray-400 hover:text-white">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </button>
+
+                    <button class="text-gray-400 hover:text-white">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
 function audioPlayer(tracks) {
@@ -292,4 +293,3 @@ function audioPlayer(tracks) {
     }
 
 </script>
-

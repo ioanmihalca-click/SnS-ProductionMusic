@@ -13,8 +13,8 @@ class AudioPlayer extends Component
             'name' => 'Riviera',
             'artist' => 'Snow N Stuff',
             'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
-            'artwork' => 'storage/thumbnail-riviera.jpg'
+            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
+            'artwork' => 'storage/artowork/thumbnail-riviera.jpg'
         ],
 
         [
@@ -22,8 +22,8 @@ class AudioPlayer extends Component
             'name' => 'Riviera',
             'artist' => 'Snow N Stuff',
             'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
-            'artwork' => 'storage/thumbnail-riviera.jpg'
+            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
+            'artwork' => 'storage/artowork/thumbnail-riviera.jpg'
         ],
 
         [
@@ -31,8 +31,8 @@ class AudioPlayer extends Component
             'name' => 'Riviera',
             'artist' => 'Snow N Stuff',
             'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/riviera.mp3',
-            'artwork' => 'storage/thumbnail-riviera.jpg'
+            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
+            'artwork' => 'storage/artowork/thumbnail-riviera.jpg'
         ]
         // Aici poți adăuga mai multe track-uri sau le poți încărca din baza de date
     ];
