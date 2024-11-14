@@ -99,53 +99,91 @@
 
 
 
-        <!-- Main Content -->
-        <main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
-            <!-- Logo and Hero Image -->
-            <div class="relative mb-8 transform rounded-2xl"
-                x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-                style="transition: all 0.8s ease-out">
-                <div class="absolute inset-0 bg-gradient-to-b from-black/0 to-black/20 rounded-2xl"></div>
-                <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Production Music"
-                    class="mx-auto transition-all duration-700 shadow-2xl w-96 hover:scale-105 rounded-2xl hover:shadow-red-900/20"
-                    x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
+    <!-- Main Content -->
+<main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
+    <!-- Logo and Hero Image -->
+    <div class="relative mb-12 transform rounded-2xl" 
+        x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+        style="transition: all 0.8s ease-out">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30 rounded-2xl"></div>
+        <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Production Music"
+            class="mx-auto transition-all duration-700 shadow-2xl hover:scale-105 rounded-2xl hover:shadow-red-900/20 w-[32rem]"
+            x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
+        
+        <!-- Floating badges -->
+        {{-- <div class="absolute top-0 right-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg rotate-2 bg-gradient-to-r from-red-600 to-red-700">
+            Premium Quality
+        </div>
+        <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
+            Exclusive Content
+        </div>
+    </div> --}}
+
+    <!-- Introduction Text -->
+    <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
+        x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+        style="transition: all 0.8s ease-out; transition-delay: 0.2s">
+        
+        <!-- Main Headline -->
+        <h1 class="mb-4">
+            <span class="block text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500" 
+                  x-ref="typingText" 
+                  data-text="Premium Production Music Library">
+            </span>
+            <span class="text-xl font-medium text-gray-400">Elevate Your Content with Professional Sound</span>
+        </h1>
+
+        <!-- Value Propositions -->
+        <div class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+            <div class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
+                <h3 class="mb-2 text-lg font-semibold text-white">Exclusive Library</h3>
+                <p class="text-sm text-gray-400">Unique, high-quality tracks crafted for professional productions</p>
             </div>
-
-            <!-- Introduction Text -->
-            <div class="max-w-xl p-6 text-base text-center text-gray-300 transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
-                x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-                style="transition: all 0.8s ease-out; transition-delay: 0.2s">
-
-                <!-- Title with typing effect -->
-                <h1 class="mb-6 text-3xl font-bold text-white" x-ref="typingText"
-                    data-text="Premium Production Music Library">
-                </h1>
-
-                <!-- Paragraphs with animations -->
-                <template x-for="(delay, index) in [1.2, 1.5, 1.8]">
-                    <p class="mb-4 transition-all duration-1000 transform"
-                        x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-                        :style="`transition-delay: ${delay}s`"
-                        x-text="[
-                           'Introducing Snow N Stuff Production Music - your ultimate source for exclusive, emotion-driven sound. We\'re a boutique production music library, specializing in crafting powerful music for any project - from gripping TV series and cinematic trailers to high-impact advertisements.',
-                           'Our collection is far from ordinary; we go beyond the standard genres, offering unique sounds that elevate your vision and leave a lasting impact. Plus, we offer custom music and expert sound design tailored to your needs, with licensing options that are as flexible as they are impressive.',
-                           'Choose Snow N Stuff - where every note is crafted to captivate, inspire and elevate your story.'
-                       ][index]">
-                    </p>
-                </template>
+            <div class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
+                <h3 class="mb-2 text-lg font-semibold text-white">Custom Solutions</h3>
+                <p class="text-sm text-gray-400">Tailored music creation for your specific project needs</p>
             </div>
+        </div>
 
-            <!-- Track List Preview -->
-<div class="max-w-md mx-auto mb-8"
-     x-show="showContent"
-     x-transition:enter="transition ease-out duration-500 delay-300"
-     x-transition:enter-start="opacity-0 transform translate-y-4"
-     x-transition:enter-end="opacity-100 transform translate-y-0">
-    <livewire:audio-player />
-</div>
+        <!-- Introduction Paragraphs -->
+        <div class="mt-8 space-y-4">
+            <template x-for="(delay, index) in [1.2, 1.5]">
+                <p class="text-base transition-all duration-1000 transform text-gray-300/90"
+                    x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+                    :style="`transition-delay: ${delay}s`"
+                    x-text="[
+                        'Welcome to Snow N Stuff Production Music, where we craft powerful, emotion-driven soundtracks for TV series, cinematic trailers, and high-impact advertisements. Our boutique library offers unique sounds that elevate your vision beyond the ordinary.',
+                        'With flexible licensing options and expert sound design services, we\'re committed to making your project stand out. Every piece in our collection is carefully curated to ensure maximum impact and professional quality.'
+                    ][index]">
+                </p>
+            </template>
+        </div>
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
+        <!-- Trust Indicators -->
+        <div class="flex flex-wrap items-center justify-center gap-6 mt-8">
+            <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                <span class="text-sm font-medium text-gray-400">Trusted since 2017</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="text-sm font-medium text-gray-400">100% Original Content</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
+            </div>
+        </div>
+        
+    </div>
+      <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-8 transform"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.4s">
                 <button
@@ -171,7 +209,8 @@
                     </span>
                 </button>
             </div>
-        </main>
+</main>
+
 
         <!-- Company Logo -->
         <x-company-logo />
@@ -201,6 +240,88 @@
             </template>
         </div>
 
+        <!-- Label Section -->
+<section class="relative py-24 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0">
+        <div class="absolute w-[600px] h-[600px] -right-48 top-0 rounded-full mix-blend-multiply filter blur-3xl opacity-20 bg-gradient-to-br from-purple-500 to-red-500"></div>
+        <div class="absolute w-[600px] h-[600px] -left-48 bottom-0 rounded-full mix-blend-multiply filter blur-3xl opacity-20 bg-gradient-to-tr from-red-500 to-purple-500"></div>
+    </div>
+
+    <div class="container relative px-4 mx-auto max-w-7xl" x-data="{ showLabel: false }" x-intersect="showLabel = true">
+        <!-- Title -->
+        <div class="max-w-3xl mx-auto mb-16 text-center" 
+             x-show="showLabel"
+             x-transition:enter="transition ease-out duration-700"
+             x-transition:enter-start="opacity-0 transform translate-y-4"
+             x-transition:enter-end="opacity-100 transform translate-y-0">
+            <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Discover Our Music Label</h2>
+            <p class="text-lg text-gray-400">Where Production Music Meets Artistic Expression</p>
+        </div>
+
+        <!-- Label Content -->
+        <div class="grid items-center grid-cols-1 gap-12 md:grid-cols-2">
+            <!-- Image Side -->
+            <div class="relative group"
+                 x-show="showLabel"
+                 x-transition:enter="transition ease-out duration-700 delay-200"
+                 x-transition:enter-start="opacity-0 transform translate-x-4"
+                 x-transition:enter-end="opacity-100 transform translate-x-0">
+                <div class="absolute inset-0 transition-all duration-300 bg-gradient-to-r from-purple-600/20 to-red-600/20 rounded-2xl group-hover:opacity-75"></div>
+                <img src="{{ asset('assets/OG-SnownStuff.jpg') }}" alt="Snow N Stuff Label" 
+                     class="relative z-10 object-cover w-full transition-transform duration-500 shadow-2xl rounded-2xl group-hover:scale-105">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 left-0 w-24 h-24 transition-transform duration-500 transform -translate-x-1/2 -translate-y-1/2 group-hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-purple-500 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Content Side -->
+            <div class="space-y-6"
+                 x-show="showLabel"
+                 x-transition:enter="transition ease-out duration-700 delay-400"
+                 x-transition:enter-start="opacity-0 transform translate-x-4"
+                 x-transition:enter-end="opacity-100 transform translate-x-0">
+                <h3 class="text-2xl font-bold text-white">More Than Production Music</h3>
+                <p class="text-gray-400">Experience the artistic side of Snow N Stuff through our record label. We work with talented artists to create unique musical experiences that go beyond production music.</p>
+                
+                <!-- Features List -->
+                <ul class="space-y-4">
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-300">Original Artist Releases</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-300">Exclusive Music Collections</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-300">Artist Collaborations</span>
+                    </li>
+                </ul>
+
+                <!-- CTA Button -->
+                <div class="pt-6">
+                    <a href="/label" class="group relative inline-flex items-center px-8 py-3 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg hover:shadow-xl hover:shadow-purple-900/20 hover:-translate-y-0.5">
+                        <span class="relative z-10">Visit Label</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Footer -->
         <footer class="relative pt-20 pb-10 overflow-hidden">
