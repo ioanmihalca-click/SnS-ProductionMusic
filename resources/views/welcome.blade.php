@@ -24,6 +24,9 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/7.0.0/wavesurfer.min.js"></script>
+    
     @livewireStyles
 </head>
 
