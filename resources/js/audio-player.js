@@ -20,13 +20,28 @@ document.addEventListener('alpine:init', () => {
                     this.loadTrack(this.tracks[value]);
                 }
             });
-        },
+        // Adaugă event listener pentru ESC
+    window.addEventListener('keydown', this.handleEscKey.bind(this));
+    
+    // Cleanup la distrugerea componentei
+    this.$cleanup(() => {
+        window.removeEventListener('keydown', this.handleEscKey.bind(this));
+    });
+},
+
+// Metodă separată pentru handler
+handleEscKey(e) {
+    if (e.key === 'Escape' && this.currentTrack !== null) {
+        this.wavesurfer?.pause();
+        this.currentTrack = null;
+    }
+},
 
         initWaveSurfer() {
             this.wavesurfer = WaveSurfer.create({
                 container: this.$refs.waveform,
                 waveColor: '#FFFFFF',
-                progressColor: '#EF4444', // red-500 to match your theme
+                progressColor: '#EF4444',
                 cursorColor: '#EF4444',
                 barWidth: 2,
                 barGap: 1,
@@ -37,7 +52,7 @@ document.addEventListener('alpine:init', () => {
                 plugins: [
                     Hover.create({
                         lineColor: '#EF4444',
-                        labelBackground: '#1F2937', // gray-800
+                        labelBackground: '#1F2937',
                         labelColor: '#ffffff',
                     })
                 ]
@@ -60,19 +75,45 @@ document.addEventListener('alpine:init', () => {
                 this.progress = this.wavesurfer.getCurrentTime() / this.wavesurfer.getDuration() * 100;
                 this.currentTime = this.formatTime(this.wavesurfer.getCurrentTime());
             });
+
+            // Adăugăm un eveniment pentru când track-ul este pregătit
+            this.wavesurfer.on('ready', () => {
+                if (this.isPlaying) {
+                    this.wavesurfer.play();
+                }
+            });
         },
         
         loadTrack(track) {
+            // Salvăm starea de redare înainte de încărcare
+            const wasPlaying = this.isPlaying;
+            this.isPlaying = false;
+            
             this.wavesurfer.load(track.file);
             this.wavesurfer.setVolume(this.volume / 100);
+
+            // Când track-ul e încărcat, îl redăm dacă era în redare înainte
+            this.wavesurfer.once('ready', () => {
+                if (wasPlaying) {
+                    this.wavesurfer.play();
+                    this.isPlaying = true;
+                }
+            });
         },
         
         playTrack(index) {
             if (this.currentTrack === index) {
                 this.togglePlay();
             } else {
+                const wasPlaying = this.isPlaying; // Salvăm starea de redare
+                this.isPlaying = true; // Setăm că vrem să cânte
                 this.wavesurfer.pause();
                 this.currentTrack = index;
+                
+                // Așteptăm încărcarea și apoi pornim redarea
+                this.wavesurfer.once('ready', () => {
+                    this.wavesurfer.play();
+                });
             }
         },
         
@@ -82,12 +123,16 @@ document.addEventListener('alpine:init', () => {
 
         playNext() {
             if (this.currentTrack < this.tracks.length - 1) {
+                const wasPlaying = this.isPlaying;
+                this.isPlaying = wasPlaying; // Păstrăm starea de redare
                 this.playTrack(this.currentTrack + 1);
             }
         },
 
         playPrevious() {
             if (this.currentTrack > 0) {
+                const wasPlaying = this.isPlaying;
+                this.isPlaying = wasPlaying; // Păstrăm starea de redare
                 this.playTrack(this.currentTrack - 1);
             }
         },
