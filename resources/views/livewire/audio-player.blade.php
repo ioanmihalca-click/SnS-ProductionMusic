@@ -9,79 +9,105 @@
 }">
 
     <div class="max-w-md mx-auto mt-4">
- <!-- Title Section - Mai subtil și elegant -->
-<div class="mb-8 text-center font-roboto-condensed">
-    <h2 class="text-2xl font-bold text-white/90" 
-        x-data="{ words: ['Listen', 'Preview', 'Experience'], currentWord: 0 }" 
-        x-init="setInterval(() => currentWord = (currentWord + 1) % words.length, 2000)">
-        <span class="block mb-2 text-sm font-medium tracking-wider uppercase text-red-500/90"
-              x-text="words[currentWord]"
-              x-transition:enter="transition ease-out duration-300"
-              x-transition:enter-start="opacity-0 transform translate-y-4"
-              x-transition:enter-end="opacity-100 transform translate-y-0">
-        </span>
-        <span class="text-transparent bg-gradient-to-r from-white to-white/80 bg-clip-text">
-            Featured Tracks
-        </span>
-    </h2>
-    <p class="mt-2 text-gray-400/80">Select a track below to preview</p>
-</div>
+        <!-- Title Section -->
+        <div class="mb-6 text-center font-roboto-condensed">
+            <h2 class="text-2xl font-bold text-white" x-data="{ words: ['Listen', 'Preview', 'Experience'], currentWord: 0 }" x-init="setInterval(() => currentWord = (currentWord + 1) % words.length, 2000)">
+                <span class="block mb-2 text-sm font-normal tracking-wider text-red-500 uppercase"
+                    x-text="words[currentWord]" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-4"
+                    x-transition:enter-end="opacity-100 transform translate-y-0">
+                </span>
+                Featured Tracks
+            </h2>
+            <p class="mt-2 text-gray-400">Select a track below to preview</p>
+        </div>
 
-<!-- Track List - Design mai rafinat -->
-<div class="max-w-md p-6 mx-auto border rounded-xl bg-white/[0.02] border-white/5 backdrop-blur-sm shadow-2xl">
+        <div class="relative" x-data="audioPlayer({{ json_encode($tracks) }})" x-init="init()">
+
+            <!-- Track List -->
+<div class="max-w-md p-4 mx-auto border rounded-lg bg-white/5 border-white/10">
     <template x-for="(track, index) in tracks" :key="index">
-        <div class="flex items-center justify-between px-4 py-3 mb-2 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5 group"
-             :class="{ 'bg-gradient-to-r from-red-500/20 to-red-500/5': currentTrack === index && isPlaying }" 
+        <div class="flex items-center justify-between px-3 py-2 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5"
+             :class="{ 'bg-red-500/20': currentTrack === index && isPlaying }" 
              @click="playTrack(index)">
-            <div class="flex items-center space-x-4">
-                <div class="flex items-center justify-center w-10 h-10 transition-transform duration-300 rounded-full bg-red-500/10 group-hover:scale-110">
+
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/20">
+                    <!-- Iconița pentru Track în Redare -->
                     <template x-if="currentTrack === index && isPlaying">
                         <svg xmlns="http://www.w3.org/2000/svg" 
                              class="w-4 h-4 text-red-500 animate-pulse"
-                             fill="none" viewBox="0 0 24 24" 
-                             stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" 
+                             fill="none" 
+                             viewBox="0 0 24 24" 
+                             stroke-width="1.5" 
+                             stroke="currentColor">
+                            <path stroke-linecap="round" 
+                                  stroke-linejoin="round" 
                                   d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
                         </svg>
                     </template>
+                    
+                    <!-- Iconița pentru Track Oprit/Neselectat -->
                     <template x-if="!(currentTrack === index && isPlaying)">
                         <svg xmlns="http://www.w3.org/2000/svg" 
                              class="w-4 h-4 text-red-500"
-                             fill="none" viewBox="0 0 24 24" 
-                             stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" 
+                             fill="none" 
+                             viewBox="0 0 24 24" 
+                             stroke-width="1.5" 
+                             stroke="currentColor">
+                            <path stroke-linecap="round" 
+                                  stroke-linejoin="round" 
                                   d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
                         </svg>
                     </template>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-medium text-white/90 group-hover:text-white" x-text="track.name"></span>
-                    <span class="text-xs text-gray-500" x-text="track.artist || 'Unknown Artist'"></span>
-                </div>
+                <span class="text-white" x-text="track.name"></span>
             </div>
-            <span class="px-4 text-sm text-gray-400/80" x-text="track.duration"></span>
+            <span class="px-4 text-sm text-gray-400" x-text="track.duration"></span>
         </div>
     </template>
 </div>
 
-<!-- Persistent Player - Mai elegant și modern -->
-<div x-show="currentTrack !== null" 
-     class="fixed bottom-0 left-0 right-0 z-50 border-t shadow-2xl backdrop-blur-md bg-gray-900/80 border-white/5">
-    <div class="container px-6 py-4 mx-auto">
-        <div class="flex flex-col space-y-4">
-            <!-- Top Section -->
-            <div class="flex items-center justify-between">
-                <!-- Track Info -->
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 overflow-hidden rounded-lg shadow-lg">
-                        <img :src="tracks[currentTrack]?.artwork" 
-                             class="object-cover w-full h-full transition-transform duration-500 hover:scale-110">
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-white/90" x-text="tracks[currentTrack]?.name"></span>
-                        <span class="text-xs text-gray-400/80" x-text="tracks[currentTrack]?.artist"></span>
-                    </div>
-                </div>
+            <!-- Persistent Player Modal -->
+            <div x-show="currentTrack !== null" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform translate-y-full"
+                x-transition:enter-end="opacity-100 transform translate-y-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 transform translate-y-0"
+                x-transition:leave-end="opacity-0 transform translate-y-full"
+                class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-800 shadow-lg bg-opacity-90">
+
+                <!-- Close Button -->
+                <button @click="currentTrack = null; wavesurfer?.pause()"
+                    class="absolute top-0 right-0 p-2 text-gray-400 transition-all duration-300 -translate-y-full rounded-t-lg bg-gray-900/95 hover:bg-red-600 hover:text-white group">
+                    <span
+                        class="absolute px-2 py-1 text-xs transition-opacity duration-300 -translate-y-1/2 bg-gray-900 rounded opacity-0 group-hover:opacity-100 right-10 top-1/2 whitespace-nowrap">
+                        Close Player (ESC)
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </button>
+
+                <div class="container px-4 py-3 mx-auto">
+                    <div class="flex flex-col space-y-4">
+                        <!-- Top Section: Track Info and Controls -->
+                        <div class="flex items-center justify-between">
+                            <!-- Left: Track Info -->
+                            <div class="flex items-center flex-1 space-x-4">
+                                <div class="flex-shrink-0 w-12 h-12 overflow-hidden bg-gray-800 rounded-md">
+                                    <img :src="tracks[currentTrack]?.artwork || '/placeholder-image.jpg'"
+                                        :alt="tracks[currentTrack]?.name" class="object-cover w-full h-full">
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="text-sm font-medium text-white truncate"
+                                        x-text="tracks[currentTrack]?.name"></span>
+                                    <span class="text-xs text-gray-400 truncate"
+                                        x-text="tracks[currentTrack]?.artist || 'Unknown Artist'"></span>
+                                </div>
+                            </div>
 
                           
 
