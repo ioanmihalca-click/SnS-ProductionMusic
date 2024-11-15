@@ -60,7 +60,7 @@
                             </div>
                             <img src="{{ asset('assets/logo-sns.png') }}" 
                                  alt="Snow N Stuff Music Label" 
-                                 class="relative z-10 object-cover w-full transition-transform duration-500 group-hover:scale-105">
+                                 class="relative z-10 object-cover w-full transition-transform group-hover:scale-105">
                         </div>
                     </div>
                 </div>
