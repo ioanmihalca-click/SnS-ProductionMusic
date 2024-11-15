@@ -199,7 +199,7 @@
             <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.4s">
-                <button
+                <a href="{{ route('library') }}"
                     class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-red-600 to-red-800 rounded-lg hover:shadow-xl hover:shadow-red-900/20 hover:-translate-y-0.5 overflow-hidden">
                     <span
                         class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
@@ -209,7 +209,7 @@
                         class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
                         Start Creating
                     </span>
-                </button>
+                </a>
                 <button
                     class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 border border-white/50 rounded-lg hover:bg-white hover:text-black hover:border-white hover:shadow-xl hover:-translate-y-0.5 backdrop-blur-sm overflow-hidden">
                     <span

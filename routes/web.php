@@ -1,8 +1,11 @@
 <?php
 
+use App\Livewire\Library;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+Route::get('/library', Library::class)
+->name('library');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
