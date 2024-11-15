@@ -99,10 +99,10 @@
 
 
 
-    <!-- Main Content -->
-<main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
-    <!-- Logo and Hero Image -->
-    <div class="relative mb-12 transform rounded-2xl" 
+        <!-- Main Content -->
+        <main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
+            <!-- Logo and Hero Image -->
+    <div class="relative mb-2 transform rounded-2xl" 
         x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
         style="transition: all 0.8s ease-out">
         <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30 rounded-2xl"></div>
@@ -113,13 +113,12 @@
         <!-- Floating badges -->
         {{-- <div class="absolute top-0 right-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg rotate-2 bg-gradient-to-r from-red-600 to-red-700">
             Premium Quality
-        </div>
-        <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
+        </div> --}}
+        {{-- <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
             Exclusive Content
-        </div>
-    </div> --}}
-
-    <!-- Introduction Text -->
+        </div> --}}
+    </div>
+               <!-- Introduction Text -->
     <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
         x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
         style="transition: all 0.8s ease-out; transition-delay: 0.2s">
@@ -180,10 +179,19 @@
                 <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
             </div>
         </div>
-        
     </div>
-      <!-- CTA Buttons -->
-            <div class="flex flex-wrap items-center justify-center gap-4 mb-8 transform"
+
+            <!-- Track List Preview -->
+<div class="max-w-md mx-auto mb-8"
+     x-show="showContent"
+     x-transition:enter="transition ease-out duration-500 delay-300"
+     x-transition:enter-start="opacity-0 transform translate-y-4"
+     x-transition:enter-end="opacity-100 transform translate-y-0">
+    <livewire:audio-player />
+</div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.4s">
                 <button
@@ -209,8 +217,7 @@
                     </span>
                 </button>
             </div>
-</main>
-
+        </main>
 
         <!-- Company Logo -->
         <x-company-logo />
@@ -239,89 +246,9 @@
                 </div>
             </template>
         </div>
-
-        <!-- Label Section -->
-<section class="relative py-24 overflow-hidden">
-    <!-- Background Elements -->
-    <div class="absolute inset-0">
-        <div class="absolute w-[600px] h-[600px] -right-48 top-0 rounded-full mix-blend-multiply filter blur-3xl opacity-20 bg-gradient-to-br from-purple-500 to-red-500"></div>
-        <div class="absolute w-[600px] h-[600px] -left-48 bottom-0 rounded-full mix-blend-multiply filter blur-3xl opacity-20 bg-gradient-to-tr from-red-500 to-purple-500"></div>
-    </div>
-
-    <div class="container relative px-4 mx-auto max-w-7xl" x-data="{ showLabel: false }" x-intersect="showLabel = true">
-        <!-- Title -->
-        <div class="max-w-3xl mx-auto mb-16 text-center" 
-             x-show="showLabel"
-             x-transition:enter="transition ease-out duration-700"
-             x-transition:enter-start="opacity-0 transform translate-y-4"
-             x-transition:enter-end="opacity-100 transform translate-y-0">
-            <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Discover Our Music Label</h2>
-            <p class="text-lg text-gray-400">Where Production Music Meets Artistic Expression</p>
-        </div>
-
-        <!-- Label Content -->
-        <div class="grid items-center grid-cols-1 gap-12 md:grid-cols-2">
-            <!-- Image Side -->
-            <div class="relative group"
-                 x-show="showLabel"
-                 x-transition:enter="transition ease-out duration-700 delay-200"
-                 x-transition:enter-start="opacity-0 transform translate-x-4"
-                 x-transition:enter-end="opacity-100 transform translate-x-0">
-                <div class="absolute inset-0 transition-all duration-300 bg-gradient-to-r from-purple-600/20 to-red-600/20 rounded-2xl group-hover:opacity-75"></div>
-                <img src="{{ asset('assets/OG-SnownStuff.jpg') }}" alt="Snow N Stuff Label" 
-                     class="relative z-10 object-cover w-full transition-transform duration-500 shadow-2xl rounded-2xl group-hover:scale-105">
-                <!-- Decorative Elements -->
-                <div class="absolute top-0 left-0 w-24 h-24 transition-transform duration-500 transform -translate-x-1/2 -translate-y-1/2 group-hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-purple-500 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Content Side -->
-            <div class="space-y-6"
-                 x-show="showLabel"
-                 x-transition:enter="transition ease-out duration-700 delay-400"
-                 x-transition:enter-start="opacity-0 transform translate-x-4"
-                 x-transition:enter-end="opacity-100 transform translate-x-0">
-                <h3 class="text-2xl font-bold text-white">More Than Production Music</h3>
-                <p class="text-gray-400">Experience the artistic side of Snow N Stuff through our record label. We work with talented artists to create unique musical experiences that go beyond production music.</p>
-                
-                <!-- Features List -->
-                <ul class="space-y-4">
-                    <li class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-gray-300">Original Artist Releases</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-gray-300">Exclusive Music Collections</span>
-                    </li>
-                    <li class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-gray-300">Artist Collaborations</span>
-                    </li>
-                </ul>
-
-                <!-- CTA Button -->
-                <div class="pt-6">
-                    <a href="/label" class="group relative inline-flex items-center px-8 py-3 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg hover:shadow-xl hover:shadow-purple-900/20 hover:-translate-y-0.5">
-                        <span class="relative z-10">Visit Label</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        
+<!-- Label Section -->
+<x-label-section />
 
         <!-- Footer -->
         <footer class="relative pt-20 pb-10 overflow-hidden">
