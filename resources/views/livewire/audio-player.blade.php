@@ -25,48 +25,37 @@
         <div class="relative" x-data="audioPlayer({{ json_encode($tracks) }})" x-init="init()">
 
             <!-- Track List -->
-<div class="max-w-md p-4 mx-auto border rounded-lg bg-white/5 border-white/10">
-    <template x-for="(track, index) in tracks" :key="index">
-        <div class="flex items-center justify-between px-3 py-2 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5"
-             :class="{ 'bg-red-500/20': currentTrack === index && isPlaying }" 
-             @click="playTrack(index)">
+            <div class="max-w-md p-4 mx-auto border rounded-lg bg-white/5 border-white/10">
+                <template x-for="(track, index) in tracks" :key="index">
+                    <div class="flex items-center justify-between px-3 py-2 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5"
+                        :class="{ 'bg-red-500/20': currentTrack === index && isPlaying }" @click="playTrack(index)">
 
-            <div class="flex items-center space-x-3">
-                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/20">
-                    <!-- Iconița pentru Track în Redare -->
-                    <template x-if="currentTrack === index && isPlaying">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="w-4 h-4 text-red-500 animate-pulse"
-                             fill="none" 
-                             viewBox="0 0 24 24" 
-                             stroke-width="1.5" 
-                             stroke="currentColor">
-                            <path stroke-linecap="round" 
-                                  stroke-linejoin="round" 
-                                  d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-                        </svg>
-                    </template>
-                    
-                    <!-- Iconița pentru Track Oprit/Neselectat -->
-                    <template x-if="!(currentTrack === index && isPlaying)">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="w-4 h-4 text-red-500"
-                             fill="none" 
-                             viewBox="0 0 24 24" 
-                             stroke-width="1.5" 
-                             stroke="currentColor">
-                            <path stroke-linecap="round" 
-                                  stroke-linejoin="round" 
-                                  d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-                        </svg>
-                    </template>
-                </div>
-                <span class="text-white" x-text="track.name"></span>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/20">
+                                <!-- Iconița pentru Track în Redare -->
+                                <template x-if="currentTrack === index && isPlaying">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500 animate-pulse"
+                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                                    </svg>
+                                </template>
+
+                                <!-- Iconița pentru Track Oprit/Neselectat -->
+                                <template x-if="!(currentTrack === index && isPlaying)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    </svg>
+                                </template>
+                            </div>
+                            <span class="text-white" x-text="track.name"></span>
+                        </div>
+                        <span class="px-4 text-sm text-gray-400" x-text="track.duration"></span>
+                    </div>
+                </template>
             </div>
-            <span class="px-4 text-sm text-gray-400" x-text="track.duration"></span>
-        </div>
-    </template>
-</div>
 
             <!-- Persistent Player Modal -->
             <div x-show="currentTrack !== null" x-transition:enter="transition ease-out duration-300"
@@ -109,26 +98,36 @@
                                 </div>
                             </div>
 
-                          
+
 
                             <!-- Right: Volume & Actions -->
                             <div class="flex items-center justify-end flex-1 space-x-4">
                                 <!-- Volume Control -->
-                                <div class="relative" @mouseleave="showVolume = false">
+                                <div class="relative group" x-data="{ showVolume: false, volume: 80 }" @mouseleave="showVolume = false">
                                     <button @mouseenter="showVolume = true"
-                                        class="text-gray-400 transition-colors hover:text-white">
+                                        class="text-gray-400 transition-colors duration-200 hover:text-white focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
                                         </svg>
                                     </button>
-                                    <div x-show="showVolume"
-                                        class="absolute p-2 mb-2 -translate-x-1/2 bg-gray-800 rounded-lg shadow-lg bottom-full left-1/2">
-                                        <input type="range" x-model="volume" @input="updateVolume()"
-                                            class="w-24 accent-red-500" min="0" max="100">
+
+                                    <div x-show="showVolume" x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0 translate-y-1"
+                                        x-transition:enter-end="opacity-100 translate-y-0"
+                                        x-transition:leave="transition ease-in duration-150"
+                                        x-transition:leave-start="opacity-100 translate-y-0"
+                                        x-transition:leave-end="opacity-0 translate-y-1"
+                                        class="absolute p-3 -translate-x-1/2 rounded-lg shadow-lg bg-gray-800/95 bottom-full left-1/2 backdrop-blur-sm">
+                                        <div class="h-24">
+                                            <input type="range" x-model="volume" @input="updateVolume()"
+                                                class="vertical-slider" orient="vertical" min="0"
+                                                max="100">
+                                        </div>
                                     </div>
                                 </div>
+
 
                                 <!-- Share Button -->
                                 <button class="text-gray-400 transition-colors hover:text-white">
@@ -168,59 +167,64 @@
                                 </div>
                             </div>
 
-<div class="flex items-center justify-between space-x-4">
-    <!-- Time and Controls Container -->
-    <div class="flex items-center flex-1 space-x-4">
-        <!-- Current Time -->
-        <span class="text-xs text-gray-400 min-w-[40px]" x-text="currentTime"></span>
+                            <div class="flex items-center justify-between space-x-4">
+                                <!-- Time and Controls Container -->
+                                <div class="flex items-center flex-1 space-x-4">
+                                    <!-- Current Time -->
+                                    <span class="text-xs text-gray-400 min-w-[40px]" x-text="currentTime"></span>
 
-        <!-- Playback Controls -->
-        <div class="flex items-center justify-center flex-1">
-            <div class="flex items-center space-x-6">
-                <button @click="playPrevious()"
-                    class="text-gray-400 transition-colors hover:text-white"
-                    :disabled="currentTrack === 0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 19.5 8.25 12l7.5-7.5" />
-                    </svg>
-                </button>
+                                    <!-- Playback Controls -->
+                                    <div class="flex items-center justify-center flex-1">
+                                        <div class="flex items-center space-x-6">
+                                            <button @click="playPrevious()"
+                                                class="text-gray-400 transition-colors hover:text-white"
+                                                :disabled="currentTrack === 0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                                </svg>
+                                            </button>
 
-                <button @click="togglePlay()"
-                    class="p-2 text-white transition-all duration-200 transform rounded-full hover:scale-110 hover:text-red-500">
-                    <template x-if="!isPlaying">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-                        </svg>
-                    </template>
-                    <template x-if="isPlaying">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-                        </svg>
-                    </template>
-                </button>
+                                            <button @click="togglePlay()"
+                                                class="p-2 text-white transition-all duration-200 transform rounded-full hover:scale-110 hover:text-red-500">
+                                                <template x-if="!isPlaying">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                    </svg>
+                                                </template>
+                                                <template x-if="isPlaying">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                                                    </svg>
+                                                </template>
+                                            </button>
 
-                <button @click="playNext()" 
-                    class="text-gray-400 transition-colors hover:text-white"
-                    :disabled="currentTrack === tracks.length - 1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+                                            <button @click="playNext()"
+                                                class="text-gray-400 transition-colors hover:text-white"
+                                                :disabled="currentTrack === tracks.length - 1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
 
-        <!-- Duration -->
-        <span class="text-xs text-gray-400 min-w-[40px] text-right" x-text="tracks[currentTrack]?.duration"></span>
-    </div>
-</div>
+                                    <!-- Duration -->
+                                    <span class="text-xs text-gray-400 min-w-[40px] text-right"
+                                        x-text="tracks[currentTrack]?.duration"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
