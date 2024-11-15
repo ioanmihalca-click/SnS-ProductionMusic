@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Snow N Stuff Production Music</title>
 
-      <!-- Favicons -->
+    <!-- Favicons -->
     <link rel="icon" href="{{ asset('assets/favicon/favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/favicon/favicon-96x96.png') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('assets/favicon/favicon.svg') }}">
@@ -102,93 +102,98 @@
         <!-- Main Content -->
         <main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
             <!-- Logo and Hero Image -->
-    <div class="relative mb-2 transform rounded-2xl" 
-        x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-        style="transition: all 0.8s ease-out">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30 rounded-2xl"></div>
-        <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Production Music"
-            class="mx-auto transition-all duration-700 shadow-2xl hover:scale-105 rounded-2xl hover:shadow-red-900/20 w-[32rem]"
-            x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
-        
-        <!-- Floating badges -->
-        {{-- <div class="absolute top-0 right-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg rotate-2 bg-gradient-to-r from-red-600 to-red-700">
+            <div class="relative mb-2 transform rounded-2xl"
+                x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+                style="transition: all 0.8s ease-out">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30 rounded-2xl"></div>
+                <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Production Music"
+                    class="mx-auto transition-all duration-700 shadow-2xl hover:scale-105 rounded-2xl hover:shadow-red-900/20 w-[32rem]"
+                    x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
+
+                <!-- Floating badges -->
+                {{-- <div class="absolute top-0 right-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg rotate-2 bg-gradient-to-r from-red-600 to-red-700">
             Premium Quality
         </div> --}}
-        {{-- <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
+                {{-- <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
             Exclusive Content
         </div> --}}
-    </div>
-               <!-- Introduction Text -->
-    <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
-        x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-        style="transition: all 0.8s ease-out; transition-delay: 0.2s">
-        
-        <!-- Main Headline -->
-        <h1 class="mb-4">
-            <span class="block text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500" 
-                  x-ref="typingText" 
-                  data-text="Premium Production Music Library">
-            </span>
-            <span class="text-xl font-medium text-gray-400">Elevate Your Content with Professional Sound</span>
-        </h1>
-
-        <!-- Value Propositions -->
-        <div class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
-            <div class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
-                <h3 class="mb-2 text-lg font-semibold text-white">Exclusive Library</h3>
-                <p class="text-sm text-gray-400">Unique, high-quality tracks crafted for professional productions</p>
             </div>
-            <div class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
-                <h3 class="mb-2 text-lg font-semibold text-white">Custom Solutions</h3>
-                <p class="text-sm text-gray-400">Tailored music creation for your specific project needs</p>
-            </div>
-        </div>
+            <!-- Introduction Text -->
+            <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
+                x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+                style="transition: all 0.8s ease-out; transition-delay: 0.2s">
 
-        <!-- Introduction Paragraphs -->
-        <div class="mt-8 space-y-4">
-            <template x-for="(delay, index) in [1.2, 1.5]">
-                <p class="text-base transition-all duration-1000 transform text-gray-300/90"
-                    x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
-                    :style="`transition-delay: ${delay}s`"
-                    x-text="[
+                <!-- Main Headline -->
+                <h1 class="mb-4">
+                    <span
+                        class="block text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500"
+                        x-ref="typingText" data-text="Premium Production Music Library">
+                    </span>
+                    <span class="text-xl font-medium text-gray-400">Elevate Your Content with Professional Sound</span>
+                </h1>
+
+                <!-- Value Propositions -->
+                <div class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+                    <div
+                        class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
+                        <h3 class="mb-2 text-lg font-semibold text-white">Exclusive Library</h3>
+                        <p class="text-sm text-gray-400">Unique, high-quality tracks crafted for professional
+                            productions</p>
+                    </div>
+                    <div
+                        class="p-4 transition-all duration-300 border border-gray-800 rounded-lg hover:border-red-500/50 hover:bg-red-500/5">
+                        <h3 class="mb-2 text-lg font-semibold text-white">Custom Solutions</h3>
+                        <p class="text-sm text-gray-400">Tailored music creation for your specific project needs</p>
+                    </div>
+                </div>
+
+                <!-- Introduction Paragraphs -->
+                <div class="mt-8 space-y-4">
+                    <template x-for="(delay, index) in [1.2, 1.5]">
+                        <p class="text-base transition-all duration-1000 transform text-gray-300/90"
+                            x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
+                            :style="`transition-delay: ${delay}s`"
+                            x-text="[
                         'Welcome to Snow N Stuff Production Music, where we craft powerful, emotion-driven soundtracks for TV series, cinematic trailers, and high-impact advertisements. Our boutique library offers unique sounds that elevate your vision beyond the ordinary.',
                         'With flexible licensing options and expert sound design services, we\'re committed to making your project stand out. Every piece in our collection is carefully curated to ensure maximum impact and professional quality.'
                     ][index]">
-                </p>
-            </template>
-        </div>
+                        </p>
+                    </template>
+                </div>
 
-        <!-- Trust Indicators -->
-        <div class="flex flex-wrap items-center justify-center gap-6 mt-8">
-            <div class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
-                <span class="text-sm font-medium text-gray-400">Trusted since 2017</span>
+                <!-- Trust Indicators -->
+                <div class="flex flex-wrap items-center justify-center gap-6 mt-8">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span class="text-sm font-medium text-gray-400">Trusted since 2017</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="text-sm font-medium text-gray-400">100% Original Content</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span class="text-sm font-medium text-gray-400">100% Original Content</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-                <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
-            </div>
-        </div>
-    </div>
 
             <!-- Track List Preview -->
-<div class="max-w-md mx-auto mb-8"
-     x-show="showContent"
-     x-transition:enter="transition ease-out duration-500 delay-300"
-     x-transition:enter-start="opacity-0 transform translate-y-4"
-     x-transition:enter-end="opacity-100 transform translate-y-0">
-    <livewire:audio-player />
-</div>
+            <div class="max-w-md mx-auto mb-8" x-show="showContent"
+                x-transition:enter="transition ease-out duration-500 delay-300"
+                x-transition:enter-start="opacity-0 transform translate-y-4"
+                x-transition:enter-end="opacity-100 transform translate-y-0">
+                <livewire:audio-player />
+            </div>
 
             <!-- CTA Buttons -->
             <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
@@ -233,8 +238,8 @@
                     x-bind:class="featuresVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                     :style="`transition: all 0.8s ease-out; transition-delay: ${index * 0.2}s`">
                     <div class="flex items-center gap-3 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor"
                             class="w-6 h-6 text-red-500 transition-transform duration-500 group-hover:scale-110">
                             <path stroke-linecap="round" stroke-linejoin="round" :d="feature.icon" />
                         </svg>
@@ -246,9 +251,9 @@
                 </div>
             </template>
         </div>
-        
-<!-- Label Section -->
-<x-label-section />
+
+        <!-- Label Section -->
+        <x-label-section />
 
         <!-- Footer -->
         <footer class="relative pt-20 pb-10 overflow-hidden">
