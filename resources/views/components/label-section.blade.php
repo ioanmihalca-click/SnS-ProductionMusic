@@ -1,5 +1,5 @@
 <!-- Label Section -->
-<section class="relative min-h-screen py-24 overflow-hidden " 
+<section class="relative min-h-screen py-24 mx-auto overflow-hidden max-w-7xl " 
          x-data="{ showLabel: false }" 
          x-intersect="showLabel = true">
     <!-- Background Layers -->
@@ -133,24 +133,23 @@
                     </div>
                 </div>
 
-                <!-- CTA Button -->
-                <div class="pt-6">
-                    <a href="/label" 
-                       class="group relative font-roboto-condensed inline-flex items-center px-8 py-4 
-                              text-lg font-semibold text-white transition-all duration-500 
-                              bg-gradient-to-r from-red-700 via-red-600 to-red-700 rounded-xl 
-                              hover:shadow-xl hover:shadow-red-500/20 hover:-translate-y-0.5">
-                        <span class="relative z-10">Visit Label</span>
-                        <svg class="relative z-10 w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" 
-                             xmlns="http://www.w3.org/2000/svg" 
-                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" 
-                                  stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                        <div class="absolute inset-0 w-full h-full transition-all duration-300 opacity-0 rounded-xl group-hover:opacity-100 bg-gradient-to-r from-red-600 via-red-500 to-red-600">
-                        </div>
-                    </a>
-                </div>
+              <!-- CTA Button -->
+<div class="pt-6">
+    <a href="/label" 
+       class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-colors bg-red-600 rounded-xl hover:bg-red-700 font-roboto-condensed">
+        Visit Label
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-5 h-5 ml-2 transition-transform hover:translate-x-1" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke="currentColor"
+             stroke-width="2">
+            <path stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+    </a>
+</div>
             </div>
         </div>
     </div>
