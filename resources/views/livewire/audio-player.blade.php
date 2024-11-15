@@ -58,7 +58,7 @@
             </div>
 
          <!-- Persistent Player Modal -->
-<div x-show="currentTrack !== null" 
+<div x-cloak x-show="currentTrack !== null" 
     x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="opacity-0 transform translate-y-full"
     x-transition:enter-end="opacity-100 transform translate-y-0"
