@@ -2,7 +2,7 @@
 
     <div class="relative" x-data="{
         showFilters: false,
-        searchQuery: ''
+        searchQuery: '',
     }" @reset-filters.window="searchQuery = ''">
 
         <header class="sticky top-0 z-50 border-b backdrop-blur-xl bg-black/50 border-gray-800/50">
@@ -384,5 +384,8 @@
             </div>
         </main>
     </div>
+
+  <!-- Persistent Player -->
+    <x-persistent-player />
 
 </div>

@@ -38,6 +38,7 @@
         <x-footer />
 
         @livewireScripts
+        <livewire:audio-player />
 </body>
 
 </html>

@@ -117,13 +117,22 @@ class Library extends Component
     }
 
     public function playTrack($trackId)
-    {
-        // Incrementăm numărul de redări
-        Track::where('id', $trackId)->increment('plays_count');
-        
-        // dispatchem eveniment pentru player
-        $this->dispatch('playTrack', $trackId);
-    }
+{
+    $track = Track::findOrFail($trackId);
+    
+    // Increment play count
+    $track->increment('plays_count');
+    
+    // Dispatch event for persistent player
+    $this->dispatch('initPersistentPlayer', [
+        'id' => $track->id,
+        'name' => $track->name,
+        'duration' => gmdate('i:s', $track->duration),
+        'file' => asset('storage/' . $track->preview_file_path),
+        'artwork' => $track->artwork_path ? asset('storage/' . $track->artwork_path) : asset('assets/default-artwork.jpg'),
+        'artist' => 'Snow N Stuff'
+    ]);
+}
 
     public function toggleFavorite($trackId)
     {

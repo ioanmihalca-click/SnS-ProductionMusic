@@ -1,3 +1,4 @@
 import './bootstrap';
-import './audio-player'
+import './audio-player';
+import './library';
 
