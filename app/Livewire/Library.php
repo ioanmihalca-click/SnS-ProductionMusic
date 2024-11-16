@@ -129,7 +129,7 @@ class Library extends Component
         'name' => $track->name,
         'duration' => gmdate('i:s', $track->duration),
         'file' => asset('storage/' . $track->preview_file_path),
-        'artwork' => $track->artwork_path ? asset('storage/' . $track->artwork_path) : asset('assets/default-artwork.jpg'),
+        'artwork' => $track->artwork_path ? asset('storage/' . $track->artwork_path) : asset('assets/default-track-artwork.jpg'),
         'artist' => 'Snow N Stuff'
     ]);
 }
