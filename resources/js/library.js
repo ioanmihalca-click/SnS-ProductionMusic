@@ -1,4 +1,3 @@
-
 import WaveSurfer from "wavesurfer.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
 
@@ -16,14 +15,28 @@ document.addEventListener("alpine:init", () => {
 
         init() {
             this.initWaveSurfer();
-            
+
             // Ascultăm pentru evenimente de la Livewire
-            Livewire.on('initPersistentPlayer', (trackData) => {
-                if (!this.tracks.find(t => t.id === trackData.id)) {
-                    this.tracks.push(trackData);
+            Livewire.on('initPersistentPlayer', (data) => {
+                console.log('Received track:', data);
+                // Extragem trackData din obiectul wrapper
+                const track = data.trackData;
+                
+                if (!track) {
+                    console.error('No track data received');
+                    return;
                 }
-                this.currentTrack = this.tracks.length - 1;
-                this.loadTrack(trackData);
+            
+                // Adăugăm track-ul în playlist dacă nu există
+                if (!this.tracks.find(t => t.id === track.id)) {
+                    this.tracks.push(track);
+                }
+                
+                // Setăm indexul track-ului curent
+                this.currentTrack = this.tracks.findIndex(t => t.id === track.id);
+                
+                // Încărcăm track-ul
+                this.loadTrack(track);
             });
 
             // Adaugă event listener pentru ESC
@@ -31,7 +44,10 @@ document.addEventListener("alpine:init", () => {
 
             // Cleanup la distrugerea componentei
             this.$cleanup(() => {
-                window.removeEventListener("keydown", this.handleEscKey.bind(this));
+                window.removeEventListener(
+                    "keydown",
+                    this.handleEscKey.bind(this)
+                );
                 this.wavesurfer?.destroy();
             });
         },
@@ -44,6 +60,14 @@ document.addEventListener("alpine:init", () => {
         },
 
         initWaveSurfer() {
+            // Verificăm dacă există deja o instanță
+            if (this.wavesurfer) {
+                this.wavesurfer.destroy();
+            }
+        
+            // Debug pentru a verifica dacă găsim containerul
+            console.log('Waveform container:', this.$refs.waveform);
+        
             this.wavesurfer = WaveSurfer.create({
                 container: this.$refs.waveform,
                 waveColor: "#FFFFFF",
@@ -63,47 +87,59 @@ document.addEventListener("alpine:init", () => {
                     }),
                 ],
             });
-
+        
+            console.log('WaveSurfer instance created:', this.wavesurfer); // Debug
+        
             this.wavesurfer.on("play", () => {
+                console.log('Track playing'); // Debug
                 this.isPlaying = true;
             });
-
+        
             this.wavesurfer.on("pause", () => {
+                console.log('Track paused'); // Debug
                 this.isPlaying = false;
             });
-
+        
             this.wavesurfer.on("finish", () => {
+                console.log('Track finished'); // Debug
                 this.isPlaying = false;
                 this.playNext();
             });
-
+        
             this.wavesurfer.on("audioprocess", () => {
                 this.progress = (this.wavesurfer.getCurrentTime() / this.wavesurfer.getDuration()) * 100;
                 this.currentTime = this.formatTime(this.wavesurfer.getCurrentTime());
             });
+        
+            // Setăm volumul inițial
+            this.wavesurfer.setVolume(this.volume / 100);
         },
-
+        
         loadTrack(track) {
-            if (!track?.file) return;
+            console.log('Loading track:', track); // Debug
+            if (!track?.file) {
+                console.error('No track file provided:', track);
+                return;
+            }
         
             const wasPlaying = this.isPlaying;
             this.isPlaying = false;
             this.loading = true;
         
             try {
+                console.log('Loading file:', track.file); // Debug
                 this.wavesurfer.load(track.file);
-                this.wavesurfer.setVolume(this.volume / 100);
         
                 this.wavesurfer.once('loading', (progress) => {
+                    console.log('Loading progress:', progress); // Debug
                     this.loading = progress < 100;
                 });
         
                 this.wavesurfer.once('ready', () => {
+                    console.log('Track ready'); // Debug
                     this.loading = false;
-                    if (wasPlaying) {
-                        this.wavesurfer.play();
-                        this.isPlaying = true;
-                    }
+                    this.wavesurfer.play();
+                    this.isPlaying = true;
                 });
         
                 this.wavesurfer.once('error', (err) => {
@@ -160,6 +196,6 @@ document.addEventListener("alpine:init", () => {
         closePlayer() {
             this.wavesurfer?.pause();
             this.currentTrack = null;
-        }
+        },
     }));
 });

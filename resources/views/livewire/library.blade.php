@@ -206,7 +206,7 @@
                             <div
                                 class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-0">
                             </div>
-                            <button wire:click="playTrack({{ $track->id }})"
+                            <button wire:click.prevent="playTrack({{ $track->id }})"
                                 class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-12 h-12 transition-transform duration-300 text-white/80 group-hover:scale-110"
@@ -385,7 +385,7 @@
         </main>
     </div>
 
-  <!-- Persistent Player -->
-    <x-persistent-player />
+    <!-- Persistent Player -->
+    <livewire:persistent-player />
 
 </div>

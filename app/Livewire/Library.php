@@ -54,30 +54,30 @@ class Library extends Component
 
         // Aplicăm filtrele de căutare
         if ($this->search) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%')
-                  ->orWhere('artist', 'like', '%' . $this->search . '%');
+                    ->orWhere('description', 'like', '%' . $this->search . '%')
+                    ->orWhere('artist', 'like', '%' . $this->search . '%');
             });
         }
 
         // Filtrăm după genuri
         if (!empty($this->selectedGenres)) {
-            $query->whereHas('genres', function($q) {
+            $query->whereHas('genres', function ($q) {
                 $q->whereIn('name', $this->selectedGenres);
             });
         }
 
         // Filtrăm după mood-uri
         if (!empty($this->selectedMoods)) {
-            $query->whereHas('moods', function($q) {
+            $query->whereHas('moods', function ($q) {
                 $q->whereIn('name', $this->selectedMoods);
             });
         }
 
         // Filtrăm după durată
         if (!empty($this->selectedDurations)) {
-            $query->where(function($q) {
+            $query->where(function ($q) {
                 foreach ($this->selectedDurations as $duration) {
                     list($min, $max) = explode('-', $duration);
                     if ($max === '+') {
@@ -109,7 +109,7 @@ class Library extends Component
         }
 
         $tracks = $query->with(['genres', 'moods'])
-                       ->paginate($this->perPage);
+            ->paginate($this->perPage);
 
         $this->loading = false;
 
@@ -120,18 +120,21 @@ class Library extends Component
 {
     $track = Track::findOrFail($trackId);
     
-    // Increment play count
+    // Incrementăm numărul de redări
     $track->increment('plays_count');
     
-    // Dispatch event for persistent player
-    $this->dispatch('initPersistentPlayer', [
+    // Formatăm datele pentru player
+    $trackData = [
         'id' => $track->id,
         'name' => $track->name,
         'duration' => gmdate('i:s', $track->duration),
         'file' => asset('storage/' . $track->preview_file_path),
-        'artwork' => $track->artwork_path ? asset('storage/' . $track->artwork_path) : asset('assets/default-track-artwork.jpg'),
+        'artwork' => $track->artwork_path ? asset('storage/' . $track->artwork_path) : asset('assets/default-artwork.jpg'),
         'artist' => 'Snow N Stuff'
-    ]);
+    ];
+    
+    // Emitem către PersistentPlayer
+    $this->dispatch('initPersistentPlayer', $trackData);
 }
 
     public function toggleFavorite($trackId)
@@ -139,14 +142,14 @@ class Library extends Component
         if (Auth::user()) {
             $user = Auth::user();
             $user->favorites()->toggle($trackId);
-            
+
             // Returnăm starea actualizată
             return $user->favorites()->where('track_id', $trackId)->exists();
         }
-        
+
         return false;
     }
-    
+
 
     public function clearFilters()
     {
