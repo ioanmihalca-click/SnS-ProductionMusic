@@ -1,5 +1,5 @@
 <!-- Label Section -->
-<section class="relative min-h-screen py-24 mx-auto overflow-hidden max-w-7xl " 
+<section class="relative min-h-screen py-24 mx-auto overflow-hidden rounded bg-gradient-to-t from-black to-transparent max-w-7xl " 
          x-data="{ showLabel: false }" 
          x-intersect="showLabel = true">
     <!-- Background Layers -->
