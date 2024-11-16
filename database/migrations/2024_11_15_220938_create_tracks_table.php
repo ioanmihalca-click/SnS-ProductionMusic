@@ -11,23 +11,45 @@ return new class extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('artist')->nullable();
             $table->text('description')->nullable();
-            $table->string('file_path');
+            
+            // Fișiere audio
+            $table->string('original_file_path');
+            $table->string('preview_file_path');
             $table->string('artwork_path')->nullable();
-            $table->integer('duration')->comment('Duration in seconds');
+            
+            // Durată și metadata
+            $table->integer('duration')->comment('Durata totală în secunde');
+            $table->integer('preview_duration')->default(60)->comment('Durata preview în secunde');
             $table->string('key')->nullable()->comment('Musical key');
             $table->integer('bpm')->nullable()->comment('Beats per minute');
+            
+            // Categorizare și taguri
+            $table->json('tags')->nullable();
+            $table->string('category')->nullable();
+            
+            // Statistici și status
             $table->unsignedInteger('plays_count')->default(0);
             $table->unsignedInteger('likes_count')->default(0);
+            $table->unsignedInteger('downloads_count')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->enum('status', ['draft', 'active', 'inactive'])->default('active');
-            $table->decimal('price', 8, 2)->nullable();
+            
+            // Prețuri pentru licențe
+            $table->decimal('standard_license_price', 8, 2)->nullable();
+            $table->decimal('premium_license_price', 8, 2)->nullable();
+            $table->decimal('exclusive_license_price', 8, 2)->nullable();
+            
+            // SEO
+            $table->text('seo_description')->nullable();
+            $table->text('seo_keywords')->nullable();
+            
             $table->timestamps();
             $table->softDeletes();
         });
-    
-        // Tabel pentru genuri
+
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
@@ -35,8 +57,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
         });
-    
-        // Tabel pentru mood-uri
+
         Schema::create('moods', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
@@ -44,34 +65,31 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
         });
-    
-        // Tabel pivot pentru relația many-to-many între tracks și genres
+
         Schema::create('genre_track', function (Blueprint $table) {
             $table->id();
             $table->foreignId('genre_id')->constrained()->onDelete('cascade');
             $table->foreignId('track_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-    
-        // Tabel pivot pentru relația many-to-many între tracks și moods
+
         Schema::create('mood_track', function (Blueprint $table) {
             $table->id();
             $table->foreignId('mood_id')->constrained()->onDelete('cascade');
             $table->foreignId('track_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-    
-        // Tabel pentru favorite
+
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('track_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-    
+
             $table->unique(['user_id', 'track_id']);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('favorites');

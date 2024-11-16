@@ -1,95 +1,5 @@
-<!-- resources/views/library.blade.php -->
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Library - Snow N Stuff Production Music</title>
-    
-    <!-- Aceleași meta tags și CSS/JS imports ca în welcome.blade.php -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
-</head>
-<body class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black">
-    <div class="relative" x-data="{
-        showFilters: false,
-        selectedGenres: [],
-        selectedMoods: [],
-        selectedDurations: [],
-        searchQuery: '',
-        view: 'grid', // or 'list'
-        sortBy: 'newest',
-        genres: ['Cinematic', 'Corporate', 'Advertising', 'Documentary', 'Epic', 'Drama'],
-        moods: ['Uplifting', 'Dramatic', 'Inspiring', 'Emotional', 'Energetic', 'Suspense'],
-        durations: ['0-30', '30-60', '60-120', '120+']
-    }">
-        <!-- Header/Navigation -->
-        <header class="sticky top-0 z-50 border-b backdrop-blur-xl bg-black/50 border-gray-800/50">
-            <div class="container px-4 mx-auto">
-                <div class="flex items-center justify-between h-16">
-                    <!-- Logo -->
-                    <a href="/" class="flex items-center space-x-2">
-                        <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Logo" class="w-8 h-8">
-                        <span class="text-lg font-bold text-white">Snow N Stuff</span>
-                    </a>
 
-                    <!-- Search Bar -->
-                    <div class="flex-1 max-w-xl mx-4">
-                        <div class="relative">
-                            <input 
-                                type="text" 
-                                x-model="searchQuery"
-                                placeholder="Search tracks..."
-                                class="w-full px-4 py-2 text-gray-300 placeholder-gray-500 transition-colors duration-300 border rounded-lg bg-white/5 border-gray-800/50 focus:outline-none focus:border-red-500"
-                            >
-                            <button class="absolute p-2 -translate-y-1/2 right-2 top-1/2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Right Actions -->
-                    <div class="flex items-center space-x-4">
-                        <button 
-                            @click="showFilters = !showFilters"
-                            class="px-4 py-2 text-sm font-medium text-gray-300 transition-all duration-300 border rounded-lg border-gray-800/50 hover:border-red-500/50 hover:text-white"
-                        >
-                            <span class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                                </svg>
-                                <span>Filters</span>
-                            </span>
-                        </button>
-
-                        <!-- View Toggle -->
-                        <div class="flex p-1 border rounded-lg border-gray-800/50">
-                            <button 
-                                @click="view = 'grid'"
-                                :class="{'bg-red-500/20 text-red-500': view === 'grid'}"
-                                class="p-2 transition-colors duration-200 rounded-lg hover:text-red-500"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                </svg>
-                            </button>
-                            <button 
-                                @click="view = 'list'"
-                                :class="{'bg-red-500/20 text-red-500': view === 'list'}"
-                                class="p-2 transition-colors duration-200 rounded-lg hover:text-red-500"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+<div>
         <!-- Filters Panel -->
         <div 
             x-show="showFilters"
@@ -196,13 +106,13 @@
                 </div>
             </div>
 
-            <!-- Grid View -->
-            <div x-show="view === 'grid'" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <template x-for="i in 9" :key="i">
-                    <div class="relative p-4 transition-all duration-300 border rounded-lg group border-gray-800/50 hover:border-red-500/50 bg-black/20">
-                        <!-- Track Image -->
-                        <div class="relative overflow-hidden rounded-lg aspect-video">
-                            <img src="https://picsum.photos/400/225" class="object-cover w-full transition-transform duration-300 group-hover:scale-110">
+           <!-- Grid View -->
+<div x-show="view === 'grid'" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+    <template x-for="i in 9" :key="i">
+        <div class="relative p-3 transition-all duration-300 border rounded-lg md:p-4 group border-gray-800/50 hover:border-red-500/50 bg-black/20">
+            <!-- Track Image -->
+            <div class="relative overflow-hidden rounded-lg aspect-video">
+                <img src="https://picsum.photos/400/225" class="object-cover w-full transition-transform duration-300 group-hover:scale-110">
                             <div class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-0"></div>
                             <button class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 transition-transform duration-300 text-white/80 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,34 +122,26 @@
                             </button>
                         </div>
 
-                        <!-- Track Info -->
-                        <div class="mt-4">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-lg font-medium text-white">Epic Cinematic Theme</h3>
-                                <span class="text-sm text-gray-400">2:45</span>
-                            </div>
-                          
-                            <div class="mt-1 text-sm text-gray-400">
-                                <span class="flex items-center space-x-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                                    </svg>
-                                    <span>Dramatic Orchestra</span>
-                                </span>
-                            </div>
+                       <!-- Track Info -->
+            <div class="mt-3 md:mt-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-medium text-white truncate md:text-lg">Epic Cinematic Theme</h3>
+                    <span class="ml-2 text-xs text-gray-400 md:text-sm">2:45</span>
+                </div>
+                
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-1.5 md:gap-2 mt-2 md:mt-3">
+                    <span class="px-2 py-0.5 text-xs text-white rounded-full bg-red-500/20">Epic</span>
+                    <span class="px-2 py-0.5 text-xs text-white rounded-full bg-red-500/20">Cinematic</span>
+                    <span class="px-2 py-0.5 text-xs text-white rounded-full bg-red-500/20">Orchestral</span>
+                </div>
 
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-2 mt-3">
-                                <span class="px-2 py-1 text-xs text-white rounded-full bg-red-500/20">Epic</span>
-                                <span class="px-2 py-1 text-xs text-white rounded-full bg-red-500/20">Cinematic</span>
-                                <span class="px-2 py-1 text-xs text-white rounded-full bg-red-500/20">Orchestral</span>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="flex items-center justify-between mt-4">
-                                <div class="flex -space-x-2">
-                                    <button class="p-2 text-gray-400 transition-colors duration-200 rounded-lg hover:text-white hover:bg-gray-800/50">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-between mt-3 md:mt-4">
+                    <div class="flex -space-x-1 md:-space-x-2">
+                        <!-- Action buttons mai mici pe mobile -->
+                        <button class="p-1.5 md:p-2 text-gray-400 transition-colors duration-200 rounded-lg hover:text-white hover:bg-gray-800/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                         </svg>
                                     </button>
@@ -255,9 +157,9 @@
                                     </button>
                                 </div>
                                 
-                                <button class="px-4 py-2 text-sm font-medium text-white transition-all duration-300 bg-red-600 rounded-lg hover:bg-red-700">
-                                    License
-                                </button>
+                                  <button class="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-white transition-all duration-300 bg-red-600 rounded-lg hover:bg-red-700">
+                        License
+                    </button>
                             </div>
                         </div>
                     </div>
@@ -341,11 +243,6 @@
                 </button>
             </div>
         </main>
-
-        <!-- Include existing footer -->
-        {{-- <x-footer /> --}}
     </div>
 
-    @livewireScripts
-</body>
-</html>
+</div>

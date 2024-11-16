@@ -7,6 +7,8 @@ Route::view('/', 'welcome');
 Route::get('/library', Library::class)
 ->name('library');
 
+
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

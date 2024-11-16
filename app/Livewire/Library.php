@@ -9,7 +9,9 @@ use App\Models\Track;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
+use Livewire\Attributes\Title;
 
+#[Title('Library - Snow N Stuff Production Music')]
 class Library extends Component
 {
     use WithPagination;
