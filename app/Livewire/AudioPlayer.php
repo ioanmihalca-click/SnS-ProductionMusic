@@ -2,46 +2,37 @@
 
 namespace App\Livewire;
 
+use App\Models\Track;
 use Livewire\Component;
 
 class AudioPlayer extends Component
 {
-    public $tracks = [
-    
-        [
-            'id' => 1,
-            'name' => 'Riviera',
-            'artist' => 'Snow N Stuff',
-            'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
-            'artwork' => 'storage/artwork/thumbnail-riviera.jpg'
-        ],
-
-        [
-            'id' => 2,
-            'name' => 'Riviera',
-            'artist' => 'Snow N Stuff',
-            'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
-            'artwork' => 'storage/artwork/thumbnail-riviera.jpg'
-        ],
-
-        [
-            'id' => 3,
-            'name' => 'Riviera',
-            'artist' => 'Snow N Stuff',
-            'duration' => '2:45',
-            'file' => 'https://production-music-sns.test/storage/music/riviera.mp3',
-            'artwork' => 'storage/artwork/thumbnail-riviera.jpg'
-        ]
-        // Aici poți adăuga mai multe track-uri sau le poți încărca din baza de date
-    ];
+    public $tracks;
 
     public function mount()
     {
-        // Aici poți face orice inițializare necesară
-        // De exemplu, încărcarea track-urilor din baza de date
-        // $this->tracks = Track::all()->toArray();
+        // Preluăm doar track-urile featured și active
+        $this->tracks = Track::where('is_featured', true)
+            ->where('status', 'active')
+            ->select([
+                'id',
+                'name',
+                'duration',
+                'preview_file_path as file', // folosim preview-ul pentru demo
+                'artwork_path as artwork'
+            ])
+            ->get()
+            ->map(function ($track) {
+                return [
+                    'id' => $track->id,
+                    'name' => $track->name,
+                    'duration' => gmdate('i:s', $track->duration), // convertim durata în format mm:ss
+                    'file' => asset('storage/' . $track->file),
+                    'artwork' => $track->artwork ? asset('storage/' . $track->artwork) : null,
+                    'artist' => 'Snow N Stuff' // hardcodat pentru moment
+                ];
+            })
+            ->toArray();
     }
 
     public function render()

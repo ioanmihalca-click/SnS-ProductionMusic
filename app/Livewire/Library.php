@@ -145,6 +145,8 @@ class Library extends Component
         $this->resetPage();
     }
 
+
+
     public function render()
     {
         return view('livewire.library', [
