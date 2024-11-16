@@ -46,8 +46,8 @@
         <div class="flex flex-col gap-3 py-3 md:flex-row md:items-center md:justify-between md:py-0 md:gap-0 md:h-16">
             <!-- Logo -->
             <a href="/" class="flex items-center space-x-2">
-                <img src="{{ asset('assets/logo-production-music.jpg') }}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12">
-                <span class="text-base font-bold tracking-wide text-white md:text-lg font-roboto-condensed">Snow N Stuff</span>
+                <img src="{{ asset('assets/logo-production-music.jpg') }}" alt="Logo" class="w-12 h-12 md:w-16 md:h-16">
+                {{-- <span class="text-base font-bold tracking-wide text-white md:text-lg font-roboto-condensed">Snow N Stuff</span> --}}
             </a>
 
             <!-- Search Bar - Full width pe mobile -->
