@@ -1,38 +1,29 @@
-// In resources/views/components/persistent-player.blade.php
-<div x-cloak x-show="currentTrack !== null" 
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform translate-y-full"
-    x-transition:enter-end="opacity-100 transform translate-y-0"
-    x-transition:leave="transition ease-in duration-300"
-    x-transition:leave-start="opacity-100 transform translate-y-0"
-    x-transition:leave-end="opacity-0 transform translate-y-full"
-    class="fixed bottom-0 left-0 right-0 z-50 border-t shadow-2xl bg-gray-900/80 border-gray-800/50">
-    
-       <!-- Persistent Player Modal -->
-<div x-cloak x-show="currentTrack !== null" 
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform translate-y-full"
-    x-transition:enter-end="opacity-100 transform translate-y-0"
-    x-transition:leave="transition ease-in duration-300"
-    x-transition:leave-start="opacity-100 transform translate-y-0"
-    x-transition:leave-end="opacity-0 transform translate-y-full"
-    class="fixed bottom-0 left-0 right-0 z-50 border-t shadow-2xl bg-gray-900/80 border-gray-800/50">
+<div x-data="libraryPlayer">
+    <div x-cloak 
+        x-show="currentTrack !== null" 
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-full"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-full"
+        class="fixed bottom-0 left-0 right-0 z-50 border-t shadow-2xl bg-gray-900/80 border-gray-800/50">
 
-    <!-- Glowing accent line -->
-    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+        <!-- Glowing accent line -->
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
 
-    <!-- Close Button -->
-    <button @click="currentTrack = null; wavesurfer?.pause()"
-        class="absolute top-0 right-0 p-2 text-gray-400 transition-all duration-300 -translate-y-full rounded-t-lg bg-gray-900/95 hover:bg-red-600 hover:text-white group">
-        <span class="absolute px-2 py-1 text-xs transition-opacity duration-300 -translate-y-1/2 bg-gray-900 rounded-md shadow-lg opacity-0 group-hover:opacity-100 right-10 top-1/2 whitespace-nowrap backdrop-blur-sm">
-            Close Player (ESC)
-        </span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
-        </svg>
-    </button>
+        <!-- Close Button -->
+        <button @click="closePlayer()"
+            class="absolute top-0 right-0 p-2 text-gray-400 transition-all duration-300 -translate-y-full rounded-t-lg bg-gray-900/95 hover:bg-red-600 hover:text-white group">
+            <span class="absolute px-2 py-1 text-xs transition-opacity duration-300 -translate-y-1/2 bg-gray-900 rounded-md shadow-lg opacity-0 group-hover:opacity-100 right-10 top-1/2 whitespace-nowrap backdrop-blur-sm">
+                Close Player (ESC)
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </button>
 
     <div class="container px-4 py-3 mx-auto">
         <div class="flex flex-col space-y-4">
