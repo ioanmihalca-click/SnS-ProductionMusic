@@ -1,9 +1,9 @@
   <!--Company Logos-->
 <div class="py-16 overflow-hidden bg-gradient-to-t from-transparent via-black to-transparent backdrop-blur-sm">
     <div class="container px-4 mx-auto max-w-7xl">
-        <h2 class="mb-12 text-2xl font-bold text-center text-white md:text-3xl font-roboto-condensed">
+        {{-- <h2 class="mb-12 text-2xl font-bold text-center text-white md:text-3xl font-roboto-condensed">
             We provided music for
-        </h2>
+        </h2> --}}
 
         <div class="relative flex"
              x-data="{ isPaused: false }"
