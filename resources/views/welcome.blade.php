@@ -188,39 +188,58 @@
             </div>
 
             <!-- Track List Preview -->
-            <div class="max-w-md mx-auto mb-8" x-show="showContent"
+            {{-- <div class="max-w-md mx-auto mb-8" x-show="showContent"
                 x-transition:enter="transition ease-out duration-500 delay-300"
                 x-transition:enter-start="opacity-0 transform translate-y-4"
                 x-transition:enter-end="opacity-100 transform translate-y-0">
                 <livewire:audio-player />
-            </div>
+            </div> --}}
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-wrap items-center justify-center gap-4 pt-8 transform"
+            <!-- Launch Announcement & CTA Buttons -->
+            <div class="flex flex-col items-center justify-center gap-6 pt-8 transform"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.4s">
-                <a href="{{ route('library') }}"
-                    class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-red-600 to-red-800 rounded-lg hover:shadow-xl hover:shadow-red-900/20 hover:-translate-y-0.5 overflow-hidden">
-                    <span
-                        class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
-                        Explore Library
-                    </span>
-                    <span
-                        class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
-                        Start Creating
-                    </span>
-                </a>
-                <button
-                    class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 border border-white/50 rounded-lg hover:bg-white hover:text-black hover:border-white hover:shadow-xl hover:-translate-y-0.5 backdrop-blur-sm overflow-hidden">
-                    <span
-                        class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
-                        Contact Us
-                    </span>
-                    <span
-                        class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
-                        Get in Touch
-                    </span>
-                </button>
+
+                <!-- Launch Info -->
+                <div
+                    class="max-w-2xl p-6 space-y-3 text-center border border-gray-800/70 rounded-xl backdrop-blur-sm bg-black/20">
+                    <h3
+                        class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">
+                        Official Launch: April 10, 2025
+                    </h3>
+                    <p class="text-lg text-gray-300/90">
+                        Be among the first to experience our revolutionary platform
+                        <span class="block mt-2 font-semibold text-red-500">Early Access Available Now</span>
+                    </p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <!-- Preserved commented button for future use -->
+                    {{-- <a href="{{ route('library') }}"
+        class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-red-600 to-red-800 rounded-lg hover:shadow-xl hover:shadow-red-900/20 hover:-translate-y-0.5 overflow-hidden">
+        <span
+            class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
+            Explore Library
+        </span>
+        <span
+            class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
+            Start Creating
+        </span>
+    </a> --}}
+
+                    <button
+                        class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 border border-white/50 rounded-lg hover:bg-white hover:text-black hover:border-white hover:shadow-xl hover:-translate-y-0.5 backdrop-blur-sm overflow-hidden">
+                        <span
+                            class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
+                            Contact Us
+                        </span>
+                        <span
+                            class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
+                            Get in Touch
+                        </span>
+                    </button>
+                </div>
             </div>
         </main>
 
@@ -253,7 +272,7 @@
         </div>
 
         <!-- Label Section -->
-        <x-label-section />
+        {{-- <x-label-section /> --}}
 
 
         <!-- Footer -->
