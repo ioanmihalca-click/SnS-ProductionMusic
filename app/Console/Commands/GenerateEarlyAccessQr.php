@@ -14,11 +14,27 @@ class GenerateEarlyAccessQr extends Command
     {
         $url = url("/early-access/" . config('early-access.token'));
         
-        // Generează QR code-ul
+        if (!file_exists(public_path('qrcodes'))) {
+            mkdir(public_path('qrcodes'), 0755, true);
+        }
+        
+        $path = public_path('qrcodes/early-access-qr.svg');
+        
+        // Generăm SVG-ul
         QrCode::size(300)
-              ->generate($url, storage_path('app/early-access-qr.png'));
+              ->format('svg')
+              ->style('square') // stil mai clar pentru scanare
+              ->errorCorrection('H') // nivel înalt de corecție a erorilor
+              ->generate($url, $path);
               
-        $this->info("QR code generat în storage/app/early-access-qr.png");
+        $this->info("QR code generat în: " . $path);
         $this->info("URL: " . $url);
+        
+        if (file_exists($path)) {
+            $this->info("QR code generat cu succes!");
+            $this->info("Îl poți găsi la: " . url('qrcodes/early-access-qr.svg'));
+        } else {
+            $this->error("A apărut o eroare la generarea QR code-ului!");
+        }
     }
 }
