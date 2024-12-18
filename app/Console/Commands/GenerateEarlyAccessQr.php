@@ -12,6 +12,11 @@ class GenerateEarlyAccessQr extends Command
 
     public function handle()
     {
+        // Adaugă aceste linii la începutul metodei handle()
+        $this->info("Valoare directă din env: " . env('EARLY_ACCESS_TOKEN'));
+        $this->info("Valoare din config: " . config('early-access.token'));
+        $this->info("Fișierul .env există?: " . (file_exists(base_path('.env')) ? 'DA' : 'NU'));
+        
         $url = url("/early-access/" . config('early-access.token'));
         
         if (!file_exists(public_path('qrcodes'))) {
