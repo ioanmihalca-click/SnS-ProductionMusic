@@ -4,7 +4,7 @@
         {{-- <p class="mt-2 text-gray-300">Enter your digital key to access exclusive content</p> --}}
     </div>
 
-    <form wire:submit="verifyKey" class="max-w-sm mx-auto space-y-6">
+    <form wire:submit="verifyKey" class="max-w-sm px-4 mx-auto space-y-6">
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-500">Digital Key</label>
             <input type="text" 
