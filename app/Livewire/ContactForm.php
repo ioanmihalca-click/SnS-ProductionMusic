@@ -24,7 +24,7 @@ class ContactForm extends Component
         $validatedData = $this->validate();
 
         // Trimite email
-        Mail::to('glenn@1namm.com')
+        Mail::to(['styledakid@gmail.com', 'glenn@1namm.com'])
         ->send(new ContactFormMail($validatedData));
 
         // Reset form și închide modal
