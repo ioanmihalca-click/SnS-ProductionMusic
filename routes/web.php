@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 
-Route::get('/early-access/{token?}', EarlyAccess::class)
+Route::get('/early-access/{token}', EarlyAccess::class)
     ->name('early-access')
     ->middleware(VerifyEarlyAccess::class);
 
