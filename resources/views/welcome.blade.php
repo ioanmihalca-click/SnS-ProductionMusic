@@ -228,19 +228,11 @@
         </span>
     </a> --}}
 
-                    <button
-                        class="group relative px-8 py-3 text-lg font-semibold text-white transition-all duration-300 border border-white/50 rounded-lg hover:bg-white hover:text-black hover:border-white hover:shadow-xl hover:-translate-y-0.5 backdrop-blur-sm overflow-hidden">
-                        <span
-                            class="relative z-10 transition-transform duration-500 group-hover:-translate-y-[120%] inline-block">
-                            Contact Us
-                        </span>
-                        <span
-                            class="absolute inset-0 flex items-center justify-center transition-transform duration-500 translate-y-[120%] group-hover:translate-y-0">
-                            Get in Touch
-                        </span>
-                    </button>
                 </div>
             </div>
+            
+            <livewire:contact-form />
+            
         </main>
 
         <!-- Company Logo -->
