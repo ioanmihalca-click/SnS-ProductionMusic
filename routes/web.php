@@ -3,6 +3,7 @@
 use App\Livewire\Library;
 use App\Http\Middleware\VerifyEarlyAccess;
 use App\Livewire\EarlyAccess;
+use App\Livewire\UnlockAccess;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -14,6 +15,7 @@ Route::get('/early-access/{token}', EarlyAccess::class)
 
 
 
+Route::get('/unlock', UnlockAccess::class)->name('unlock');
 
 
 

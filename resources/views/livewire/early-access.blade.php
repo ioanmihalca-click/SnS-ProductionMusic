@@ -217,7 +217,7 @@
 
 
         <!-- Footer -->
-        <x-footer />
+        {{-- <x-footer /> --}}
 
     </div>
     @livewireScripts
