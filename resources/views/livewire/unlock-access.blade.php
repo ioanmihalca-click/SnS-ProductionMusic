@@ -1,5 +1,5 @@
 <div class="max-w-2xl px-4 py-12 mx-auto">
-    <div class="mb-8 text-center">
+    <div class="mb-12 text-center">
         <h1 class="text-3xl font-bold text-gray-300">Unlock Early Access</h1>
         {{-- <p class="mt-2 text-gray-300">Enter your digital key to access exclusive content</p> --}}
     </div>
