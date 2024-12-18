@@ -17,7 +17,6 @@ class VerifyEarlyAccess
         // Verifică token-ul din URL
         $token = $request->route('token');
         
-        // Dacă nu există token sau nu e corect, redirect la home
         if (!$token || $token !== config('early-access.token')) {
             return redirect('/');
         }
