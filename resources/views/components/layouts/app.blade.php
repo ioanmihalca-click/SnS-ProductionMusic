@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{{ $title ?? 'Snow N Stuff Production Music' }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Snow N Stuff Production Music</title>
 
     <!-- Favicons -->
     <link rel="icon" href="{{ asset('assets/favicon/favicon.ico') }}">
@@ -30,6 +29,7 @@
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black">
+
  
         <!-- Conținutul principal -->
         {{ $slot }}

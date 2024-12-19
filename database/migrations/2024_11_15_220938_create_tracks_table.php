@@ -17,7 +17,7 @@ return new class extends Migration
             
             // Fișiere audio
             $table->string('original_file_path');
-            $table->string('preview_file_path');
+            $table->string('preview_file_path')->nullable(); 
             $table->string('artwork_path')->nullable();
             
             // Durată și metadata
