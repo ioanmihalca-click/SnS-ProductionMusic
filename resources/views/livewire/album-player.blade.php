@@ -221,7 +221,7 @@
 
                                 <!-- License Button -->
                                 <button
-                                    class="px-4 py-2 text-sm font-medium text-white transition-all duration-300 bg-red-600 rounded-lg hover:bg-red-700 hover:shadow-lg hover:shadow-red-600/20">
+                                    class="hidden px-4 py-2 text-sm font-medium text-white transition-all duration-300 bg-red-600 rounded-lg md:block hover:bg-red-700 hover:shadow-lg hover:shadow-red-600/20">
                                     License Album
                                 </button>
                             </div>
