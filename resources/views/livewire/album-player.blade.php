@@ -9,7 +9,7 @@
     showVolume: false,
     loading: false
 }">
-<div class="max-w-4xl mx-auto mt-4"> 
+    <div class="w-full mx-auto mt-4">
         <!-- Title Section -->
         <div class="mb-6 text-center font-roboto-condensed">
             <h2 class="text-2xl font-bold text-white" x-data="{ words: ['Discover', 'Experience', 'Listen'], currentWord: 0 }" x-init="setInterval(() => currentWord = (currentWord + 1) % words.length, 2000)">
@@ -18,80 +18,114 @@
                     x-transition:enter-start="opacity-0 transform translate-y-4"
                     x-transition:enter-end="opacity-100 transform translate-y-0">
                 </span>
-           EARLY ACCESS
+                Featured Albums
             </h2>
             <p class="mt-2 text-gray-400">Select an album to preview tracks</p>
         </div>
 
-      <!-- Album List -->
-    <div class="relative" x-data="albumPlayer({{ json_encode($albums) }})" x-init="init()">
-        <div class="max-w-4xl p-4 mx-auto space-y-4 border rounded-lg bg-white/5 border-white/10"> <!-- și aici am schimbat la max-w-4xl -->
-            <template x-for="(album, albumIndex) in albums" :key="album.id">
-                <div class="space-y-2">
-                    <!-- Album Header - Restructurat pentru a include descrierea -->
-                    <div class="flex items-start justify-between p-4 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5"
-                        @click="toggleAlbum(albumIndex)">
-                        <div class="flex flex-1 space-x-4">
-                            <!-- Album Artwork -->
-                            <div class="relative flex-shrink-0 w-20 h-20 overflow-hidden rounded-lg"> <!-- mărit artwork -->
-                                <img :src="album.artwork" :alt="album.name" 
-                                    class="object-cover w-full h-full transition-transform duration-300 hover:scale-110">
+        <!-- Album List cu design îmbunătățit -->
+        <div class="relative" x-data="albumPlayer({{ json_encode($albums) }})" x-init="init()">
+            <div class="w-full max-w-2xl mx-auto border bg-gray-900/40 rounded-xl border-gray-800/50">
+                <template x-for="(album, albumIndex) in albums" :key="album.id">
+                    <div class="relative overflow-hidden transition-all duration-300 rounded-lg hover:bg-white/5 group">
+                        <!-- Album Header - Layout optimizat pentru mobil -->
+                        <div class="flex flex-col p-5 space-y-4 cursor-pointer md:flex-row md:items-start md:space-y-0 md:space-x-6"
+                            @click="toggleAlbum(albumIndex)">
+                            <!-- Album Artwork - Mai mare pe mobil -->
+                            <div
+                                class="relative flex-shrink-0 overflow-hidden rounded-lg w-full md:w-52 h-40 md:h-52 mx-auto md:mx-0 max-w-[200px]">
+                                <img :src="album.artwork" :alt="album.name"
+                                    class="object-cover w-full h-full transition-all duration-500 group-hover:scale-110">
+                                <div
+                                    class="absolute inset-0 transition-opacity bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:opacity-0">
+                                </div>
                             </div>
-                            
-                            <!-- Album Info -->
-                            <div class="flex-1">
-                                <h3 class="text-xl font-medium text-white" x-text="album.name"></h3>
-                                <p class="mt-1 text-sm text-gray-400" x-text="`${album.tracks.length} tracks • ${album.duration}`"></p>
-                                <!-- Album Description -->
-                                <p class="mt-2 text-sm text-gray-300" x-text="album.description"></p>
+
+                            <!-- Album Info - Full width pe mobil -->
+                            <div class="flex-1 min-w-0 space-y-3 md:space-y-0">
+                                <div
+                                    class="flex flex-col justify-between space-y-2 md:flex-row md:items-center md:space-y-0">
+                                    <!-- Titlu Album -->
+                                    <h3 class="text-xl font-bold tracking-tight text-center text-white md:text-2xl font-roboto-condensed md:text-left"
+                                        x-text="album.name"></h3>
+
+                                    <!-- Stats - Reaaranjate pe mobil -->
+                                    <div class="flex items-center justify-center space-x-4 md:justify-end">
+                                        <div class="flex items-center text-gray-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path
+                                                    d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
+                                            </svg>
+                                            <span x-text="album.tracks.length"></span>
+                                        </div>
+                                        {{-- <div class="flex items-center text-gray-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <span x-text="album.duration"></span>
+                                        </div> --}}
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <p class="mt-2 text-sm leading-relaxed text-center text-gray-400 md:text-left"
+                                    x-text="album.description"></p>
+
+                                <!-- Show/Hide Tracks Button -->
+                                <div
+                                    class="flex items-center justify-center mt-3 text-sm text-red-500 transition-colors md:justify-start group-hover:text-red-400">
+                                    <span x-text="currentAlbum === albumIndex ? 'Hide tracks' : 'Show tracks'"></span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 ml-1 transition-transform duration-300"
+                                        :class="{ 'rotate-180': currentAlbum === albumIndex }" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Expand/Collapse Icon -->
-                        <div class="ml-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 transition-transform duration-300"
-                                :class="{ 'rotate-180': currentAlbum === albumIndex }"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Track List - Ajustat padding pentru noul layout -->
-                    <div x-show="currentAlbum === albumIndex" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 transform -translate-y-2"
-                        x-transition:enter-end="opacity-100 transform translate-y-0"
-                        class="pl-24 space-y-1"> <!-- ajustat padding-left pentru aliniere cu artwork -->
-                            <template x-for="(track, trackIndex) in album.tracks" :key="track.id">
-                                <div class="flex items-center justify-between px-3 py-2 transition-all duration-300 rounded-lg cursor-pointer hover:bg-white/5"
-                                    :class="{ 'bg-red-500/20': currentAlbum === albumIndex && currentTrackIndex ===
-                                            trackIndex && isPlaying }"
-                                    @click="playTrack(albumIndex, trackIndex)">
-                                    <div class="flex items-center space-x-3">
+                        <!-- Track List - Ajustat padding pentru mobil -->
+                        <div x-show="currentAlbum === albumIndex" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 -translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0" class="px-3 pb-5 md:px-5">
+                            <div class="p-4 space-y-2 rounded-lg bg-black/20">
+                                <template x-for="(track, trackIndex) in album.tracks" :key="track.id">
+                                    <div class="flex items-center px-4 py-3 transition-all rounded-lg cursor-pointer hover:bg-white/5"
+                                        :class="{ 'bg-red-500/20': currentAlbum === albumIndex && currentTrackIndex ===
+                                                trackIndex && isPlaying }"
+                                        @click="playTrack(albumIndex, trackIndex)">
+                                        <!-- Track Number/Playing Indicator -->
                                         <div
-                                            class="flex items-center justify-center w-6 h-6 rounded-full bg-red-500/20">
-                                            <!-- Playing Icon -->
+                                            class="flex items-center justify-center w-8 h-8 mr-4 rounded-full bg-white/5">
                                             <template
                                                 x-if="currentAlbum === albumIndex && currentTrackIndex === trackIndex && isPlaying">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="w-4 h-4 text-red-500 animate-pulse" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                                                        stroke-width="2" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
                                                 </svg>
                                             </template>
-                                            <!-- Play Icon -->
                                             <template
                                                 x-if="!(currentAlbum === albumIndex && currentTrackIndex === trackIndex && isPlaying)">
-                                                <span class="text-sm text-red-500" x-text="trackIndex + 1"></span>
+                                                <span class="font-medium text-gray-400" x-text="trackIndex + 1"></span>
                                             </template>
                                         </div>
-                                        <span class="text-sm text-white" x-text="track.name"></span>
+
+                                        <!-- Track Info -->
+                                        <div class="flex items-center justify-between flex-1">
+                                            <span class="text-sm font-medium text-white" x-text="track.name"></span>
+                                            <span class="text-sm text-gray-400" x-text="track.duration"></span>
+                                        </div>
                                     </div>
-                                    <span class="text-sm text-gray-400" x-text="track.duration"></span>
-                                </div>
-                            </template>
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -219,8 +253,10 @@
                                             <!-- Previous Button -->
                                             <button @click="playPrevious()"
                                                 class="p-2 text-gray-400 transition-all duration-200 rounded-full hover:text-white hover:bg-gray-800/50"
-                                                :class="{ 'opacity-50 cursor-not-allowed': currentAlbum === 0 &&
-                                                        currentTrackIndex === 0 }"
+                                                :class="{
+                                                    'opacity-50 cursor-not-allowed': currentAlbum === 0 &&
+                                                        currentTrackIndex === 0
+                                                }"
                                                 :disabled="currentAlbum === 0 && currentTrackIndex === 0">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -254,8 +290,11 @@
                                             <!-- Next Button -->
                                             <button @click="playNext()"
                                                 class="p-2 text-gray-400 transition-all duration-200 rounded-full hover:text-white hover:bg-gray-800/50"
-                                                :class="{ 'opacity-50 cursor-not-allowed': currentAlbum === albums.length - 1 &&
-                                                        currentTrackIndex === albums[currentAlbum].tracks.length - 1 }"
+                                                :class="{
+                                                    'opacity-50 cursor-not-allowed': currentAlbum === albums.length -
+                                                        1 &&
+                                                        currentTrackIndex === albums[currentAlbum].tracks.length - 1
+                                                }"
                                                 :disabled="currentAlbum === albums.length - 1 && currentTrackIndex === albums[
                                                     currentAlbum].tracks.length - 1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"

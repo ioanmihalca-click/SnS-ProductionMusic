@@ -81,9 +81,9 @@
                     x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
 
                 <!-- Floating badges -->
-                {{-- <div class="absolute top-0 right-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg rotate-2 bg-gradient-to-r from-red-600 to-red-700">
-            Premium Quality
-        </div> --}}
+                <div class="absolute top-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg right-1 rotate-2 bg-gradient-to-r from-red-600 to-red-700">
+            Early Access
+        </div> 
                 {{-- <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
             Exclusive Content
         </div> --}}
@@ -143,13 +143,10 @@
                 </div>
             </div>
 
-            <!-- Track List Preview -->
-            <div class="max-w-4xl mx-auto mb-8" x-show="showContent"
-                x-transition:enter="transition ease-out duration-500 delay-300"
-                x-transition:enter-start="opacity-0 transform translate-y-4"
-                x-transition:enter-end="opacity-100 transform translate-y-0">
+            <div class="w-full px-4">
                 <livewire:album-player />
             </div>
+
 
 
             

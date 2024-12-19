@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TrackResource\Pages;
-use App\Models\Track;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Track;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use App\Filament\Resources\TrackResource\Pages;
 
 class TrackResource extends Resource
 {
@@ -27,7 +28,7 @@ class TrackResource extends Resource
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn($state, Forms\Set $set) =>
-                            $set('slug', \Str::slug($state))),
+                            $set('slug', Str::slug($state))),
 
                         Forms\Components\TextInput::make('slug')
                             ->required()
@@ -44,18 +45,27 @@ class TrackResource extends Resource
                         Forms\Components\FileUpload::make('original_file_path')
                             ->label('Original Track')
                             ->required()
-                            ->acceptedFileTypes(['audio/mpeg', 'audio/wav', 'audio/mp3'])
+                            ->acceptedFileTypes([  'audio/mpeg',          // .mp3
+                            'audio/wav',           // .wav
+                            'audio/x-wav',         // alternativ pentru .wav
+                            'audio/wave',          // alternativ pentru .wav
+                            'audio/x-pn-wav',      // alternativ pentru .wav
+                            'audio/vnd.wave',      // alternativ pentru .wav
+                            'audio/mp3',
+                            'audio/x-mp3',
+                            'audio/mpeg3',
+                            'audio/x-mpeg-3'])
                             ->directory('tracks/original')
                             ->preserveFilenames()
                             ->maxSize(50000), // 50MB în KB
 
-                        Forms\Components\FileUpload::make('preview_file_path')
-                            ->label('Preview Track')
-                            ->required()
-                            ->acceptedFileTypes(['audio/mpeg', 'audio/wav', 'audio/mp3'])
-                            ->directory('tracks/preview')
-                            ->preserveFilenames()
-                            ->maxSize(50000),
+                        // Forms\Components\FileUpload::make('preview_file_path')
+                        //     ->label('Preview Track')
+                        //     ->required()
+                        //     ->acceptedFileTypes(['audio/mpeg', 'audio/wav', 'audio/mp3'])
+                        //     ->directory('tracks/preview')
+                        //     ->preserveFilenames()
+                        //     ->maxSize(50000),
 
                         Forms\Components\FileUpload::make('artwork_path')
                             ->label('Artwork')
@@ -101,32 +111,32 @@ class TrackResource extends Resource
 
                     Forms\Components\Section::make('Pricing & Status')
                     ->schema([
-                        Forms\Components\TextInput::make('standard_license_price')
-                            ->label('Standard License')
-                            ->numeric()
-                            ->prefix('$')
-                            ->step('0.01')
-                            ->required()
-                            ->default(0.00)
-                            ->helperText('Price for standard license - basic usage rights'),
+                        // Forms\Components\TextInput::make('standard_license_price')
+                        //     ->label('Standard License')
+                        //     ->numeric()
+                        //     ->prefix('$')
+                        //     ->step('0.01')
+                        //     ->required()
+                        //     ->default(0.00)
+                        //     ->helperText('Price for standard license - basic usage rights'),
                 
-                        Forms\Components\TextInput::make('premium_license_price')
-                            ->label('Premium License')
-                            ->numeric()
-                            ->prefix('$')
-                            ->step('0.01')
-                            ->required()
-                            ->default(0.00)
-                            ->helperText('Price for premium license - extended usage rights'),
+                        // Forms\Components\TextInput::make('premium_license_price')
+                        //     ->label('Premium License')
+                        //     ->numeric()
+                        //     ->prefix('$')
+                        //     ->step('0.01')
+                        //     ->required()
+                        //     ->default(0.00)
+                        //     ->helperText('Price for premium license - extended usage rights'),
                 
-                        Forms\Components\TextInput::make('exclusive_license_price')
-                            ->label('Exclusive License')
-                            ->numeric()
-                            ->prefix('$')
-                            ->step('0.01')
-                            ->required()
-                            ->default(0.00)
-                            ->helperText('Price for exclusive license - full rights transfer'),
+                        // Forms\Components\TextInput::make('exclusive_license_price')
+                        //     ->label('Exclusive License')
+                        //     ->numeric()
+                        //     ->prefix('$')
+                        //     ->step('0.01')
+                        //     ->required()
+                        //     ->default(0.00)
+                        //     ->helperText('Price for exclusive license - full rights transfer'),
                 
                         Forms\Components\Toggle::make('is_featured')
                             ->label('Featured Track'),
