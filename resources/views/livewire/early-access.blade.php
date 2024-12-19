@@ -71,7 +71,7 @@
 
         <!-- Main Content -->
         <main class="relative flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
-            <!-- Logo and Hero Image -->
+            {{-- <!-- Logo and Hero Image -->
             <div class="relative mb-2 transform rounded-2xl"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out">
@@ -83,12 +83,12 @@
                 <!-- Floating badges -->
                 <div class="absolute top-0 px-4 py-2 -mt-4 -mr-4 text-sm font-semibold text-white transform rounded-lg shadow-lg right-1 rotate-2 bg-gradient-to-r from-red-600 to-red-700">
             Early Access
-        </div> 
+        </div>  --}}
                 {{-- <div class="absolute bottom-0 left-0 px-4 py-2 -mb-4 -ml-4 text-sm font-semibold text-white transform rounded-lg shadow-lg -rotate-2 bg-gradient-to-r from-purple-600 to-purple-700">
             Exclusive Content
         </div> --}}
-            </div>
-            <!-- Introduction Text -->
+            {{-- </div> --}}
+            {{-- <!-- Introduction Text -->
             <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.2s">
@@ -141,7 +141,7 @@
                         <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="w-full px-4">
                 <livewire:album-player />
