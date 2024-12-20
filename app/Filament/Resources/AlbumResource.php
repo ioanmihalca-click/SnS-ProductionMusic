@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AlbumResource\Pages;
 use App\Models\Album;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -42,8 +43,8 @@ class AlbumResource extends Resource
                             ->required()
                             ->unique(Album::class, 'slug', ignoreRecord: true),
 
-                        Forms\Components\Textarea::make('description')
-                            ->rows(3),
+                        RichEditor::make('description')
+                            ->rows(5),
 
                         Forms\Components\FileUpload::make('artwork_path')
                             ->image()
