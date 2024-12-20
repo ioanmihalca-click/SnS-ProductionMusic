@@ -73,7 +73,8 @@
 
                                 <!-- Description -->
                                 <p class="mt-2 text-sm leading-relaxed text-center text-gray-400 md:text-left"
-                                    x-text="album.description"></p>
+                                    x-html="album.description"></p>
+
 
                                 <!-- Show/Hide Tracks Button -->
                                 <div x-init="currentAlbum = albumIndex"
@@ -97,8 +98,10 @@
                             <div class="p-4 space-y-2 rounded-lg bg-black/20">
                                 <template x-for="(track, trackIndex) in album.tracks" :key="track.id">
                                     <div class="flex items-center px-4 py-3 transition-all rounded-lg cursor-pointer hover:bg-white/5"
-                                        :class="{ 'bg-red-500/20': currentAlbum === albumIndex && currentTrackIndex ===
-                                                trackIndex && isPlaying }"
+                                        :class="{
+                                            'bg-red-500/20': currentAlbum === albumIndex && currentTrackIndex ===
+                                                trackIndex && isPlaying
+                                        }"
                                         @click="playTrack(albumIndex, trackIndex)">
                                         <!-- Track Number/Playing Indicator -->
                                         <div

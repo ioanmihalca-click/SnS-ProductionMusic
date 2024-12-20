@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Markdown;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -43,8 +44,8 @@ class AlbumResource extends Resource
                             ->required()
                             ->unique(Album::class, 'slug', ignoreRecord: true),
 
-                        RichEditor::make('description')
-                            ->rows(5),
+                        RichEditor::make('description'),
+                          
 
                         Forms\Components\FileUpload::make('artwork_path')
                             ->image()
