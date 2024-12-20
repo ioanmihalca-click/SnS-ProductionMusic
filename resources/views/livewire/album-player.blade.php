@@ -20,7 +20,7 @@
                 </span>
                 Featured Albums
             </h2>
-            <p class="mt-2 text-gray-400">Select an album to preview tracks</p>
+            {{-- <p class="mt-2 text-gray-400">Select an album to preview tracks</p> --}}
         </div>
 
         <!-- Album List cu design îmbunătățit -->
@@ -76,7 +76,7 @@
                                     x-text="album.description"></p>
 
                                 <!-- Show/Hide Tracks Button -->
-                                <div
+                                <div x-init="currentAlbum = albumIndex"
                                     class="flex items-center justify-center mt-3 text-sm text-red-500 transition-colors md:justify-start group-hover:text-red-400">
                                     <span x-text="currentAlbum === albumIndex ? 'Hide tracks' : 'Show tracks'"></span>
                                     <svg xmlns="http://www.w3.org/2000/svg"

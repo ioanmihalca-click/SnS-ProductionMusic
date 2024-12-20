@@ -77,7 +77,7 @@
                 style="transition: all 0.8s ease-out">
                 <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/30 rounded-2xl"></div>
                 <img src="{{ asset('assets/hero-production-music.webp') }}" alt="Snow N Stuff Production Music"
-                    class="mx-auto transition-all duration-700 shadow-2xl hover:scale-105 rounded-2xl hover:shadow-red-900/20 w-[32rem]"
+                    class="w-48 mx-auto transition-all duration-700 shadow-2xl hover:scale-105 rounded-2xl hover:shadow-red-900/20"
                     x-bind:style="'transform: translateY(' + scrollPosition * 0.1 + 'px)'">
 
                 <!-- Floating badges -->
@@ -88,7 +88,7 @@
             Exclusive Content
         </div> --}}
             </div>
-            <!-- Introduction Text -->
+            {{-- <!-- Introduction Text -->
             <div class="max-w-2xl p-8 text-center transform border shadow-xl font-roboto-condensed bg-black/20 rounded-2xl border-gray-800/50"
                 x-bind:class="showContent ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'"
                 style="transition: all 0.8s ease-out; transition-delay: 0.2s">
@@ -141,7 +141,7 @@
                         <span class="text-sm font-medium text-gray-400">Fast Delivery</span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="w-full px-4">
                 <livewire:album-player />
